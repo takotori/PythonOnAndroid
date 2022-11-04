@@ -3,4 +3,5 @@
     <string name="startGameBtn_txt">Start Game</string>
     <string name="scoreboardBtn_txt">Scoreboard</string>
     <string name="optionsBtn_txt">Options</string>
+    <string name="logoutBtn_txt">Logout</string>
 </resources>
