@@ -2,10 +2,14 @@ package com.example.pythonOnAndroid
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.example.pythonOnAndroid.databinding.ActivityOptionsBinding
 
 class OptionsActivity : AppCompatActivity() {
+    private lateinit var binding: ActivityOptionsBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_options)
+        binding = ActivityOptionsBinding.inflate(layoutInflater);
+        setContentView(binding.root)
     }
 }
