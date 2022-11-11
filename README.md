@@ -1,9 +1,3 @@
-<style>
-td, th {
-   border: none!important;
-}
-</style>
-
 # PythonOnAndroid :snake:
 In unsere App implementieren wir das Spiel Snake. Der Spieler soll dabei die Schlange mittels 
 Bewegungssensoren steuern können. Es gibt eine Offline- sowie eine Online-Modus. 
