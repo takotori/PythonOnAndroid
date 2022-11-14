@@ -1,6 +1,8 @@
 package com.example.pythonOnAndroid
 
+import android.content.Intent
 import android.os.Bundle
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.pythonOnAndroid.databinding.ActivityLoginBinding
 import com.firebase.ui.auth.AuthUI
@@ -45,20 +47,14 @@ class LoginActivity : AppCompatActivity() {
         if (result.resultCode == RESULT_OK) {
             // Successfully signed in
             val user = FirebaseAuth.getInstance().currentUser
-            // ...
+            startActivity(Intent(this, MenuActivity::class.java).apply {
+                putExtra("user", user);
+            })
         } else {
             // Sign in failed. If response is null the user canceled the
             // sign-in flow using the back button. Otherwise check
             // response.getError().getErrorCode() and handle the error.
-            // ...
+            Toast.makeText(applicationContext, "Login failed: $response", Toast.LENGTH_LONG).show()
         }
     }
-
-//    private fun signOut() {
-//        AuthUI.getInstance()
-//            .signOut(this)
-//            .addOnCompleteListener {
-//                // ...
-//            }
-//    }
 }
