@@ -32,9 +32,16 @@ class MenuActivity : AppCompatActivity() {
             )
         }
         //Todo change method in inside clickListener
-        binding.startGameBtn.setOnClickListener { binding.startGameBtn.text = "Clicked" }
+        binding.startGameBtn.setOnClickListener {
+            startActivity(
+                Intent(
+                    this@MenuActivity,
+                    GameActivity::class.java
+                )
+            )
+        }
         binding.logoutBtn.setOnClickListener {
-            signOut();
+            signOut()
         }
     }
 
