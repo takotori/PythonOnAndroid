@@ -1,5 +1,5 @@
 # PythonOnAndroid :snake:
-In unsere App implementieren wir das Spiel Snake. Der Spieler soll dabei die Schlange mittels 
+In unserer App implementieren wir das Spiel Snake. Der Spieler soll dabei die Schlange mittels 
 Bewegungssensoren steuern können. Es gibt eine Offline- sowie eine Online-Modus. 
 Um online spielen zu können muss der Nutzer sich mit einem Google-Account anmelden. 
 Die Spielstände werden im Online Modus auf Google Firebase gespeichert 
