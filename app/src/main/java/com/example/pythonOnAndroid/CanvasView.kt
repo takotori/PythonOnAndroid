@@ -13,30 +13,28 @@ class CanvasView @JvmOverloads constructor(
     defStyleAttr: Int = 0
 ) : View(context, attrs, defStyleAttr) {
 
+    private val snakeBody = Paint()
+    private val food = Paint()
+    private val level = Paint()
+
     override fun onDraw(canvas: Canvas?) {
         super.onDraw(canvas)
-        val snakeBody = Paint()
-        snakeBody.setColor(Color.GREEN)
-        val food = Paint()
-        food.setColor(Color.RED)
-        val level = Paint()
-        level.setColor(Color.DKGRAY)
-
+        snakeBody.color = Color.GREEN
+        food.color = Color.RED
+        level.color = Color.DKGRAY
 
         // draw level
-        canvas?.drawRect(0f,0f,1050f,1050f,level)
+        canvas?.drawRect(0f, 0f, 1050f, 1050f, level)
 
         // draw snake from array
         // left x, top y, right x+50, bottom y +50
 
-        for (i in Snake.bodyParts){
-            canvas?.drawRect(i[0], i[1], i[0]+45, i[1]+45, snakeBody)
+        for (i in Snake.bodyParts) {
+            canvas?.drawRect(i[0], i[1], i[0] + 45, i[1] + 45, snakeBody)
         }
 
         // draw food from array
         // left x, top y, right x+50, bottom y +50
-        canvas?.drawRect(Food.posX, Food.posY, Food.posX +45, Food.posY +45,food)
-
-
+        canvas?.drawRect(Food.posX, Food.posY, Food.posX + 45, Food.posY + 45, food)
     }
 }

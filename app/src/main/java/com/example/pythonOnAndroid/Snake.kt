@@ -5,15 +5,12 @@ class Snake {
         // default: just one body part
         var headX = 0f
         var headY = 0f
-        var bodyParts =
-            mutableListOf(arrayOf(0f, 0f))
+        var bodyParts = mutableListOf(arrayOf(0f, 0f))
         var direction = "right"
         var alive = false
 
         fun possibleMove(): Boolean {
-            if (headX < 0f || headX > 1000f || headY < 0f || headY > 1000)
-                return false
-            return true
+            return !(headX < 0f || headX > 1000f || headY < 0f || headY > 1000)
         }
 
         fun reset() {

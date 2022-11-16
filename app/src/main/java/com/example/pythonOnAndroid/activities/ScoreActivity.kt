@@ -1,4 +1,4 @@
-package com.example.pythonOnAndroid
+package com.example.pythonOnAndroid.activities
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
