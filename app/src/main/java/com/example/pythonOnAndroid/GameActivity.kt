@@ -1,7 +1,6 @@
 package com.example.pythonOnAndroid
 
 import android.annotation.SuppressLint
-import android.content.pm.ActivityInfo
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.GestureDetector
@@ -19,13 +18,9 @@ class GameActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityGameBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_FULLSCREEN
-        requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
-        supportActionBar?.hide()
 
         ///////////////////////////////////////////////////////////////////////////////////////
         // touch control
-
         open class OnSwipeTouchListener : View.OnTouchListener {
 
             private val gestureDetector = GestureDetector(GestureListener())
