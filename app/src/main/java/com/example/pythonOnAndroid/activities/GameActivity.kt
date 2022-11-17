@@ -26,28 +26,7 @@ class GameActivity : AppCompatActivity(), SensorEventListener {
         CoroutineScope(Dispatchers.IO).launch {
             while (true) {
                 while (Snake.alive) {
-                    when (Snake.direction) {
-                        "up" -> {
-                            // create new head position
-                            Snake.headY -= 50
-                            checkPossibleMoves()
-                        }
-                        "down" -> {
-                            // create new head position
-                            Snake.headY += 50
-                            checkPossibleMoves()
-                        }
-                        "left" -> {
-                            // create new head position
-                            Snake.headX -= 50
-                            checkPossibleMoves()
-                        }
-                        "right" -> {
-                            // create new head position
-                            Snake.headX += 50
-                            checkPossibleMoves()
-                        }
-                    }
+                    moveSnake()
                     // convert head to body
                     Snake.bodyParts.add(arrayOf(Snake.headX, Snake.headY))
                     // delete tail if not eat
@@ -60,6 +39,31 @@ class GameActivity : AppCompatActivity(), SensorEventListener {
                     binding.canvas.invalidate()
                     delay(150)
                 }
+            }
+        }
+    }
+
+    private fun moveSnake() {
+        when (Snake.direction) {
+            "up" -> {
+                // create new head position
+                Snake.headY -= 50
+                checkPossibleMoves()
+            }
+            "down" -> {
+                // create new head position
+                Snake.headY += 50
+                checkPossibleMoves()
+            }
+            "left" -> {
+                // create new head position
+                Snake.headX -= 50
+                checkPossibleMoves()
+            }
+            "right" -> {
+                // create new head position
+                Snake.headX += 50
+                checkPossibleMoves()
             }
         }
     }
