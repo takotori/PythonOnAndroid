@@ -13,3 +13,12 @@ und offline in der Datenbank geschrieben.
 * Verwendung von Jetpack-Komponenten    **(min. 1 Punkt)**
 * Integration von Drittkomponenten      **(min. 1 Punkt)**
 * Ressourcen: Unterschiedliche Styles   **(min. 1 Punkt)**
+
+## Todos
+:white_square_button: lock phone orientation <br />
+:white_square_button: fullscreen app <br />
+:white_square_button: no action bar <br />
+:white_square_button: offline login funcationality <br />
+:white_square_button: add retro style <br />
+:white_square_button: display scoore in game activity <br />
+:white_square_button: add scoore board <br />
