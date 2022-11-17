@@ -16,10 +16,12 @@ class GameActivity : AppCompatActivity(), SensorEventListener {
     private lateinit var sensorManager: SensorManager
     private var movementSensitivity: Float = 2F
     private var snakeSpeed: Long = 150
+    private var score: Int = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityGameBinding.inflate(layoutInflater)
+        binding.scoreTextView.text = "SCORE: 0"
         setContentView(binding.root)
         setUpSensor()
 
@@ -29,6 +31,7 @@ class GameActivity : AppCompatActivity(), SensorEventListener {
                     moveSnake()
                     Snake.bodyParts.add(arrayOf(Snake.headX, Snake.headY))
                     if (Snake.headX == Food.posX && Snake.headY == Food.posY) {
+                        updateScore(score+1)
                         Food.generate()
                     } else {
                         Snake.bodyParts.removeAt(0)
@@ -37,6 +40,13 @@ class GameActivity : AppCompatActivity(), SensorEventListener {
                     delay(snakeSpeed)
                 }
             }
+        }
+    }
+
+    private fun updateScore(score: Int){
+        this.score = score
+        runOnUiThread {
+            binding.scoreTextView.text = "SCORE: $score"
         }
     }
 
@@ -64,6 +74,7 @@ class GameActivity : AppCompatActivity(), SensorEventListener {
     private fun checkPossibleMoves() {
         if (!Snake.possibleMove()) {
             Snake.alive = false
+            updateScore(0)
             Snake.reset()
         }
     }
