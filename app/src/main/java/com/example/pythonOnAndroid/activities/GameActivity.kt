@@ -6,7 +6,6 @@ import android.hardware.SensorEventListener
 import android.hardware.SensorManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import com.example.pythonOnAndroid.Food
 import com.example.pythonOnAndroid.Snake
 import com.example.pythonOnAndroid.databinding.ActivityGameBinding
@@ -15,6 +14,7 @@ import kotlinx.coroutines.*
 class GameActivity : AppCompatActivity(), SensorEventListener {
     private lateinit var binding: ActivityGameBinding
     private lateinit var sensorManager: SensorManager
+    private var movementSensitivity: Float = 2F
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -89,22 +89,22 @@ class GameActivity : AppCompatActivity(), SensorEventListener {
             val sides = -event.values[0]
             val upDown = event.values[1]
 
-            if (sides < -3F) {
+            if (sides < -movementSensitivity) {
                 Snake.alive = true
                 if (Snake.direction != "right")
                     Snake.direction = "left"
             }
-            if (sides > 3F) {
+            if (sides > movementSensitivity) {
                 Snake.alive = true
                 if (Snake.direction != "left")
                     Snake.direction = "right"
             }
-            if (upDown < -3F) {
+            if (upDown < -movementSensitivity) {
                 Snake.alive = true
                 if (Snake.direction != "down")
                     Snake.direction = "up"
             }
-            if (upDown > 3F) {
+            if (upDown > movementSensitivity) {
                 Snake.alive = true
                 if (Snake.direction != "up")
                     Snake.direction = "down"
