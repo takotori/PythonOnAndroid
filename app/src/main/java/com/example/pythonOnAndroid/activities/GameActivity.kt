@@ -1,19 +1,26 @@
 package com.example.pythonOnAndroid.activities
 
+import android.hardware.Sensor
+import android.hardware.SensorEvent
+import android.hardware.SensorEventListener
+import android.hardware.SensorManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import com.example.pythonOnAndroid.Food
 import com.example.pythonOnAndroid.Snake
 import com.example.pythonOnAndroid.databinding.ActivityGameBinding
 import kotlinx.coroutines.*
 
-class GameActivity : AppCompatActivity() {
+class GameActivity : AppCompatActivity(), SensorEventListener {
     private lateinit var binding: ActivityGameBinding
+    private lateinit var sensorManager: SensorManager
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityGameBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        setUpSensor()
 
         // move the snake
         CoroutineScope(Dispatchers.IO).launch {
@@ -43,21 +50,18 @@ class GameActivity : AppCompatActivity() {
                     }
                     // convert head to body
                     Snake.bodyParts.add(arrayOf(Snake.headX, Snake.headY))
-
                     // delete tail if not eat
-                    if (Snake.headX == Food.posX && Snake.headY == Food.posY)
+                    if (Snake.headX == Food.posX && Snake.headY == Food.posY) {
                         Food.generate()
-                    else
+                    } else {
                         Snake.bodyParts.removeAt(0)
-
+                    }
                     //game speed in millisecond
                     binding.canvas.invalidate()
                     delay(150)
                 }
             }
         }
-
-        setupListeners()
     }
 
     private fun checkPossibleMoves() {
@@ -67,26 +71,53 @@ class GameActivity : AppCompatActivity() {
         }
     }
 
-    private fun setupListeners() {
-        binding.buttonUp.setOnClickListener {
-            Snake.alive = true
-            if (Snake.direction != "down")
-                Snake.direction = "up"
+    private fun setUpSensor() {
+        sensorManager = getSystemService(SENSOR_SERVICE) as SensorManager
+        sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER)?.also {
+            sensorManager.registerListener(
+                this,
+                it,
+                SensorManager.SENSOR_DELAY_FASTEST,
+                SensorManager.SENSOR_DELAY_FASTEST
+            )
         }
-        binding.buttonDown.setOnClickListener {
-            Snake.alive = true
-            if (Snake.direction != "up")
-                Snake.direction = "down"
+
+    }
+
+    override fun onSensorChanged(event: SensorEvent?) {
+        if (event?.sensor?.type == Sensor.TYPE_ACCELEROMETER) {
+            val sides = -event.values[0]
+            val upDown = event.values[1]
+
+            if (sides < -3F) {
+                Snake.alive = true
+                if (Snake.direction != "right")
+                    Snake.direction = "left"
+            }
+            if (sides > 3F) {
+                Snake.alive = true
+                if (Snake.direction != "left")
+                    Snake.direction = "right"
+            }
+            if (upDown < -3F) {
+                Snake.alive = true
+                if (Snake.direction != "down")
+                    Snake.direction = "up"
+            }
+            if (upDown > 3F) {
+                Snake.alive = true
+                if (Snake.direction != "up")
+                    Snake.direction = "down"
+            }
         }
-        binding.buttonLeft.setOnClickListener {
-            Snake.alive = true
-            if (Snake.direction != "right")
-                Snake.direction = "left"
-        }
-        binding.buttonRight.setOnClickListener {
-            Snake.alive = true
-            if (Snake.direction != "left")
-                Snake.direction = "right"
-        }
+    }
+
+    override fun onAccuracyChanged(p0: Sensor?, p1: Int) {
+        return
+    }
+
+    override fun onDestroy() {
+        sensorManager.unregisterListener(this)
+        super.onDestroy()
     }
 }
