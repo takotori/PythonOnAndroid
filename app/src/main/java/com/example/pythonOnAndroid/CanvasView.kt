@@ -23,7 +23,6 @@ class CanvasView @JvmOverloads constructor(
         food.color = Color.RED
         level.color = Color.DKGRAY
 
-        // draw level
         canvas?.drawRect(0f, 0f, 1050f, 1050f, level)
 
         // draw snake from array

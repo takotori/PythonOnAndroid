@@ -2,7 +2,6 @@ package com.example.pythonOnAndroid
 
 class Snake {
     companion object {
-        // default: just one body part
         var headX = 0f
         var headY = 0f
         var bodyParts = mutableListOf(arrayOf(0f, 0f))
