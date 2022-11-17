@@ -15,6 +15,7 @@ class GameActivity : AppCompatActivity(), SensorEventListener {
     private lateinit var binding: ActivityGameBinding
     private lateinit var sensorManager: SensorManager
     private var movementSensitivity: Float = 2F
+    private var snakeSpeed: Long = 150
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -58,7 +59,7 @@ class GameActivity : AppCompatActivity(), SensorEventListener {
                     }
                     //game speed in millisecond
                     binding.canvas.invalidate()
-                    delay(150)
+                    delay(snakeSpeed)
                 }
             }
         }
