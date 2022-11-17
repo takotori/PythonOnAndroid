@@ -21,4 +21,4 @@ und offline in der Datenbank geschrieben.
 :white_square_button: offline login funcationality <br />
 :white_square_button: add retro style <br />
 :white_square_button: display scoore in game activity <br />
-:white_square_button: add scoore board <br />
+:white_square_button: add scoreboard <br />
