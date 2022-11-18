@@ -9,6 +9,11 @@ class Snake {
         var alive = false
 
         fun possibleMove(): Boolean {
+            for(bodyPart in bodyParts){
+                if(bodyPart[0] == headX && bodyPart[1] == headY){
+                    return false
+                }
+            }
             return !(headX < 0f || headX > 1000f || headY < 0f || headY > 1000)
         }
 
