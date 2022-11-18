@@ -1,6 +1,8 @@
 package com.example.pythonOnAndroid
 
+import android.content.Context
 import android.content.Intent
+import android.net.ConnectivityManager
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -23,8 +25,11 @@ class LoginActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        createSignInIntent();
-
+        if (isOnline(applicationContext)) {
+            createSignInIntent()
+        } else {
+            startActivity(Intent(this, MenuActivity::class.java))
+        }
     }
 
     private fun createSignInIntent() {
@@ -56,5 +61,11 @@ class LoginActivity : AppCompatActivity() {
             // response.getError().getErrorCode() and handle the error.
             Toast.makeText(applicationContext, "Login failed: $response", Toast.LENGTH_LONG).show()
         }
+    }
+
+    fun isOnline(context: Context): Boolean {
+        val connectivityManager = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        val capabilities = connectivityManager.getNetworkCapabilities(connectivityManager.activeNetwork)
+        return capabilities != null
     }
 }

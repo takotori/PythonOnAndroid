@@ -18,7 +18,7 @@ class MenuActivity : AppCompatActivity() {
         binding.scoreBoardBtn.setOnClickListener { binding.scoreBoardBtn.text = "Clicked" }
         binding.startGameBtn.setOnClickListener { binding.startGameBtn.text = "Clicked" }
         binding.logoutBtn.setOnClickListener {
-             signOut();
+            signOut();
         }
     }
 
