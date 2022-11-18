@@ -89,7 +89,6 @@ class GameActivity : AppCompatActivity(), SensorEventListener {
                 SensorManager.SENSOR_DELAY_FASTEST
             )
         }
-
     }
 
     override fun onSensorChanged(event: SensorEvent?) {
