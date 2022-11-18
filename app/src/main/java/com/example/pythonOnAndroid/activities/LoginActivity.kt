@@ -1,4 +1,4 @@
-package com.example.pythonOnAndroid
+package com.example.pythonOnAndroid.activities
 
 import android.content.Context
 import android.content.Intent
@@ -53,7 +53,7 @@ class LoginActivity : AppCompatActivity() {
             // Successfully signed in
             val user = FirebaseAuth.getInstance().currentUser
             startActivity(Intent(this, MenuActivity::class.java).apply {
-                putExtra("user", user);
+                putExtra("user", user)
             })
         } else {
             // Sign in failed. If response is null the user canceled the

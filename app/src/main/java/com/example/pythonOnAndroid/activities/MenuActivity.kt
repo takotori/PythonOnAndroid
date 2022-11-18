@@ -1,4 +1,4 @@
-package com.example.pythonOnAndroid
+package com.example.pythonOnAndroid.activities
 
 import android.content.Intent
 import android.os.Bundle
@@ -13,12 +13,35 @@ class MenuActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMenuBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        binding.optionsBtn.setOnClickListener {
+            startActivity(
+                Intent(
+                    this@MenuActivity,
+                    OptionsActivity::class.java
+                )
+            )
+        }
+
+        binding.scoreBoardBtn.setOnClickListener {
+            startActivity(
+                Intent(
+                    this@MenuActivity,
+                    ScoreActivity::class.java
+                )
+            )
+        }
         //Todo change method in inside clickListener
-        binding.optionsBtn.setOnClickListener { binding.optionsBtn.text = "Clicked" }
-        binding.scoreBoardBtn.setOnClickListener { binding.scoreBoardBtn.text = "Clicked" }
-        binding.startGameBtn.setOnClickListener { binding.startGameBtn.text = "Clicked" }
+        binding.startGameBtn.setOnClickListener {
+            startActivity(
+                Intent(
+                    this@MenuActivity,
+                    GameActivity::class.java
+                )
+            )
+        }
         binding.logoutBtn.setOnClickListener {
-            signOut();
+            signOut()
         }
     }
 
