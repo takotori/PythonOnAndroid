@@ -3,13 +3,12 @@ package com.example.pythonOnAndroid.activities
 import android.content.Context
 import android.content.Intent
 import android.net.ConnectivityManager
-import android.os.Build
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.pythonOnAndroid.databinding.ActivityMenuBinding
 import com.firebase.ui.auth.AuthUI
-import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.auth.FirebaseAuth
 
 class MenuActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMenuBinding
@@ -19,13 +18,8 @@ class MenuActivity : AppCompatActivity() {
         binding = ActivityMenuBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val userIntent = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            intent.getParcelableExtra("user", FirebaseUser::class.java)
-        } else {
-            intent.getParcelableExtra("user") as? FirebaseUser
-        }
-
-        if (userIntent == null || userIntent.isAnonymous) {
+        val user = FirebaseAuth.getInstance().currentUser
+        if (user == null || user.isAnonymous) {
             binding.logoutBtn.text = "Login"
         }
 
