@@ -52,9 +52,7 @@ class LoginActivity : AppCompatActivity() {
         if (result.resultCode == RESULT_OK) {
             // Successfully signed in
             val user = FirebaseAuth.getInstance().currentUser
-            startActivity(Intent(this, MenuActivity::class.java).apply {
-                putExtra("user", user)
-            })
+            startActivity(Intent(this, MenuActivity::class.java))
         } else {
             // Sign in failed. If response is null the user canceled the
             // sign-in flow using the back button. Otherwise check
