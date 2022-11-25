@@ -5,4 +5,12 @@
     <string name="optionsBtn_txt">Options</string>
     <string name="logoutBtn_txt">Logout</string>
     <string name="score_place_holder_txt">SCORE: 0</string>
+    <string name="options_style_title_txt">Style</string>
+    <string name="options_themes_txt">Themes</string>
+    <string name="options_snake_color_txt">Snake color</string>
+    <string name="options_food_color_txt">Food color</string>
+    <string name="options_game_settings_txt">Game settings</string>
+    <string name="options_control_sensibility_txt">Control sensibility</string>
+    <string name="options_snake_speed_txt">Snake speed</string>
+    <string name="options_language_txt">Language</string>
 </resources>

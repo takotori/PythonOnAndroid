@@ -1,9 +1,108 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/optionsActivityLayout"
-    tools:context=".activities.OptionsActivity">
+    tools:context=".activities.OptionsActivity"
+    android:orientation="vertical">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+
+    <TextView
+        android:id="@+id/options_title_style"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/options_style_title_txt" />
+
+    <TextView
+        android:id="@+id/options_themes_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/options_themes_txt" />
+
+    <Spinner
+        android:id="@+id/options_themes_drop_down"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:id="@+id/options_snake_color_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/options_snake_color_txt" />
+
+    <Button
+        android:id="@+id/options_snake_color_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Button" />
+
+    <TextView
+        android:id="@+id/options_food_color_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/options_food_color_txt" />
+
+    <Button
+        android:id="@+id/options_food_color_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Button" />
+
+    <View
+        android:id="@+id/divider"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="?android:attr/listDivider" />
+
+    <TextView
+        android:id="@+id/options_game_settings_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/options_game_settings_txt"/>
+
+    <TextView
+        android:id="@+id/options_control_sensibility_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/options_control_sensibility_txt" />
+
+    <SeekBar
+        android:id="@+id/options_control_sensibility_seekBar"
+        style="@style/Widget.AppCompat.SeekBar.Discrete"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:max="10"
+        android:progress="3" />
+
+    <TextView
+        android:id="@+id/options_snake_speed_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/options_snake_speed_txt"/>
+
+    <SeekBar
+        android:id="@+id/options_snake_speed_seekBar"
+        style="@style/Widget.AppCompat.SeekBar.Discrete"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:max="10"
+        android:progress="3" />
+
+    <View
+        android:id="@+id/divider2"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="?android:attr/listDivider" />
+
+    <TextView
+        android:id="@+id/options_language_txt"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/options_language_txt" />
+
+    <Spinner
+        android:id="@+id/options_language_drop_down"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+</LinearLayout>
