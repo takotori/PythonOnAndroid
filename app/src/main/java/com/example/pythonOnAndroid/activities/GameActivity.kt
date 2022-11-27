@@ -1,5 +1,6 @@
 package com.example.pythonOnAndroid.activities
 
+import android.content.Intent
 import android.hardware.Sensor
 import android.hardware.SensorEvent
 import android.hardware.SensorEventListener
@@ -11,9 +12,10 @@ import com.example.pythonOnAndroid.Snake
 import com.example.pythonOnAndroid.databinding.ActivityGameBinding
 import kotlinx.coroutines.*
 
-class GameActivity : AppCompatActivity(), SensorEventListener {
+class GameActivity : AppCompatActivity(), SensorEventListener, GameCallback {
     private lateinit var binding: ActivityGameBinding
     private lateinit var sensorManager: SensorManager
+    private lateinit var endScreenFragment: Endscreen;
     private var movementSensitivity: Float = 2F
     private var snakeSpeed: Long = 150
     private var score: Int = 0
@@ -22,6 +24,7 @@ class GameActivity : AppCompatActivity(), SensorEventListener {
         super.onCreate(savedInstanceState)
         binding = ActivityGameBinding.inflate(layoutInflater)
         binding.scoreTextView.text = "SCORE: 0"
+
         setContentView(binding.root)
         setUpSensor()
 
@@ -74,9 +77,31 @@ class GameActivity : AppCompatActivity(), SensorEventListener {
     private fun checkPossibleMoves() {
         if (!Snake.possibleMove()) {
             Snake.alive = false
-            updateScore(0)
-            Snake.reset()
+            endScreenFragment = Endscreen.newInstance(score);
+            supportFragmentManager.beginTransaction()
+                .add(binding.endScreenFragment.id, endScreenFragment)
+                .commit()
         }
+    }
+
+    override fun restartGame() {
+        supportFragmentManager.beginTransaction()
+            .remove(endScreenFragment)
+            .commit()
+        updateScore(0)
+        Snake.reset()
+    }
+
+    override fun quitGame() {
+        supportFragmentManager.beginTransaction()
+            .remove(endScreenFragment)
+            .commit()
+        startActivity(
+            Intent(
+                this@GameActivity,
+                MenuActivity::class.java
+            )
+        )
     }
 
     private fun setUpSensor() {
