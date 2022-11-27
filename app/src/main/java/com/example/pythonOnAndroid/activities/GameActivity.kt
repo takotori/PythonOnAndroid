@@ -27,6 +27,13 @@ class GameActivity : AppCompatActivity(), SensorEventListener, GameCallback {
 
         setContentView(binding.root)
         setUpSensor()
+        // todo remove score
+        endScreenFragment = Endscreen.newInstance(score)
+
+        supportFragmentManager.beginTransaction()
+            .add(binding.endScreenFragment.id, endScreenFragment)
+            .hide(endScreenFragment)
+            .commit()
 
         CoroutineScope(Dispatchers.IO).launch {
             while (true) {
@@ -77,16 +84,16 @@ class GameActivity : AppCompatActivity(), SensorEventListener, GameCallback {
     private fun checkPossibleMoves() {
         if (!Snake.possibleMove()) {
             Snake.alive = false
-            endScreenFragment = Endscreen.newInstance(score);
+            endScreenFragment.score  = score
             supportFragmentManager.beginTransaction()
-                .add(binding.endScreenFragment.id, endScreenFragment)
-                .commit()
+                .show(endScreenFragment)
+                .commitAllowingStateLoss()
         }
     }
 
     override fun restartGame() {
         supportFragmentManager.beginTransaction()
-            .remove(endScreenFragment)
+            .hide(endScreenFragment)
             .commit()
         updateScore(0)
         Snake.reset()
@@ -94,7 +101,7 @@ class GameActivity : AppCompatActivity(), SensorEventListener, GameCallback {
 
     override fun quitGame() {
         supportFragmentManager.beginTransaction()
-            .remove(endScreenFragment)
+            .hide(endScreenFragment)
             .commit()
         startActivity(
             Intent(

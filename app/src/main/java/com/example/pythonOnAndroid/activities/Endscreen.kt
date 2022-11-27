@@ -2,19 +2,22 @@ package com.example.pythonOnAndroid.activities
 
 import android.content.Context
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.TextView
+import androidx.fragment.app.Fragment
 import com.example.pythonOnAndroid.R
-import com.example.pythonOnAndroid.databinding.FragmentEndscreenBinding
 
 private const val ARG_PARAM1 = "Score"
 
 class Endscreen : Fragment() {
     private lateinit var callback : GameCallback
-    private var score: Int? = 0
+    private lateinit var quitBtn : Button;
+    private lateinit var restartBtn : Button;
+    private lateinit var scoreTxt : TextView;
+    var score: Int = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,8 +38,9 @@ class Endscreen : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val quitBtn = view.findViewById<Button>(R.id.quitBtn)
-        val restartBtn = view.findViewById<Button>(R.id.restartBtn)
+        quitBtn = view.findViewById(R.id.quitBtn)
+        restartBtn = view.findViewById(R.id.restartBtn)
+        scoreTxt = view.findViewById(R.id.scoreTxt)
 
         quitBtn.setOnClickListener {
             callback.quitGame()
