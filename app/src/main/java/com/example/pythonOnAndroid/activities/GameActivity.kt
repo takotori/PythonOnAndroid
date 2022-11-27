@@ -31,7 +31,7 @@ class GameActivity : AppCompatActivity(), SensorEventListener {
                     moveSnake()
                     Snake.bodyParts.add(arrayOf(Snake.headX, Snake.headY))
                     if (Snake.headX == Food.posX && Snake.headY == Food.posY) {
-                        updateScore(score+1)
+                        updateScore(score + 1)
                         Food.generate()
                     } else {
                         Snake.bodyParts.removeAt(0)
@@ -43,7 +43,7 @@ class GameActivity : AppCompatActivity(), SensorEventListener {
         }
     }
 
-    private fun updateScore(score: Int){
+    private fun updateScore(score: Int) {
         this.score = score
         runOnUiThread {
             binding.scoreTextView.text = "SCORE: $score"
