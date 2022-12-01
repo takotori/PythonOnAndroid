@@ -35,7 +35,6 @@ class MenuActivity : AppCompatActivity() {
                 )
             )
         }
-
         binding.scoreBoardBtn.setOnClickListener {
             startActivity(
                 Intent(

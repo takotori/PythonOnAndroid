@@ -6,4 +6,15 @@
     android:id="@+id/scoreActivityLayout"
     tools:context=".activities.ScoreActivity">
 
+    <ScrollView
+        android:id="@+id/leaderboardScroll"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:id="@+id/leaderboard"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" />
+    </ScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>
