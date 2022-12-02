@@ -22,4 +22,8 @@
     <string name="save_speed_toast">Neue Geschwindigkeit ist: %d</string>
     <string name="save_sensibility_toast">Neue Sensibilität ist: %d</string>
     <string name="login_failed_toast">Anmeldung fehlgeschlagen: %s</string>
+    <string-array name="languages_string_array">
+        <item name="en">en</item>
+        <item name="de">de</item>
+    </string-array>
 </resources>

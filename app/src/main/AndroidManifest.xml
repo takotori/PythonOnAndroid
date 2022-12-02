@@ -11,7 +11,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.PythonOnAndroid"
-        tools:targetApi="31">
+        tools:targetApi="31"
+        android:localeConfig="@xml/locales_config">
         <activity
             android:name=".activities.GameActivity"
             android:exported="false"
@@ -54,6 +55,13 @@
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
+        <service
+            android:name="androidx.appcompat.app.AppLocalesMetadataHolderService"
+            android:enabled="false"
+            android:exported="false">
+            <meta-data
+                android:name="autoStoreLocales"
+                android:value="true" />
+        </service>
     </application>
-
 </manifest>

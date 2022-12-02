@@ -2,12 +2,16 @@ package com.example.pythonOnAndroid.activities
 
 import android.content.SharedPreferences
 import android.graphics.Color
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
+import android.widget.AdapterView
+import android.widget.AdapterView.OnItemSelectedListener
 import android.widget.Button
 import android.widget.SeekBar
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
+import androidx.core.os.LocaleListCompat
 import com.example.pythonOnAndroid.R
 import com.example.pythonOnAndroid.databinding.ActivityOptionsBinding
 import com.github.dhaval2404.colorpicker.ColorPickerDialog
@@ -24,8 +28,10 @@ class OptionsActivity : AppCompatActivity() {
         val sharedPref = getSharedPreferences(PreferenceKeys.preferenceName, MODE_PRIVATE)
         val editor = sharedPref.edit()
         initOptions(sharedPref)
-        val defaultSnakeColor = sharedPref.getString(PreferenceKeys.snakeColorHex, "#00FF00").toString()
-        val defaultFoodColor = sharedPref.getString(PreferenceKeys.foodColorHex, "#FF0000").toString()
+        val defaultSnakeColor =
+            sharedPref.getString(PreferenceKeys.snakeColorHex, "#00FF00").toString()
+        val defaultFoodColor =
+            sharedPref.getString(PreferenceKeys.foodColorHex, "#FF0000").toString()
 
         binding.optionsThemesRdGroup.setOnCheckedChangeListener { _, checkId ->
             val chosenThemeOption: Int = when (checkId) {
@@ -34,9 +40,9 @@ class OptionsActivity : AppCompatActivity() {
                 else -> AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM
             }
             AppCompatDelegate.setDefaultNightMode(chosenThemeOption)
-            editor.apply{
-                putInt(PreferenceKeys.chosenCheckBoxTheme,checkId)
-                putInt(PreferenceKeys.chosenTheme,chosenThemeOption)
+            editor.apply {
+                putInt(PreferenceKeys.chosenCheckBoxTheme, checkId)
+                putInt(PreferenceKeys.chosenTheme, chosenThemeOption)
                 apply()
             }
         }
@@ -98,10 +104,30 @@ class OptionsActivity : AppCompatActivity() {
                     apply()
                 }
                 Toast.makeText(
-                    this@OptionsActivity, resources.getString(R.string.save_speed_toast).format(snakeSpeed), Toast.LENGTH_LONG
+                    this@OptionsActivity,
+                    resources.getString(R.string.save_speed_toast).format(snakeSpeed),
+                    Toast.LENGTH_LONG
                 ).show()
             }
         })
+
+        binding.optionsLanguageDropDown.onItemSelectedListener = object : OnItemSelectedListener {
+            override fun onItemSelected(
+                adapterView: AdapterView<*>?,
+                view: View?,
+                position: Int,
+                id: Long
+            ) {
+                val locale = adapterView?.getItemAtPosition(position).toString()
+                editor.apply {
+                    putInt("locale", position)
+                    apply()
+                }
+                AppCompatDelegate.setApplicationLocales(LocaleListCompat.forLanguageTags(locale))
+            }
+
+            override fun onNothingSelected(p0: AdapterView<*>?) {}
+        }
     }
 
     private fun displayColorPickerDialog(
@@ -127,24 +153,32 @@ class OptionsActivity : AppCompatActivity() {
     private fun initOptions(sharedPref: SharedPreferences) {
         //-Style
         //--Themes
-        binding.optionsThemesRdGroup.check(sharedPref.getInt(PreferenceKeys.chosenCheckBoxTheme,1))
+        binding.optionsThemesRdGroup.check(sharedPref.getInt(PreferenceKeys.chosenCheckBoxTheme, 1))
         //--SnakeColor
         binding.optionsSnakeColorBtn.setBackgroundColor(
             sharedPref.getInt(
                 PreferenceKeys.snakeColor, Color.GREEN
             )
         )
-        binding.optionsSnakeColorBtn.text = sharedPref.getString(PreferenceKeys.snakeColorHex, "#00FF00")
+        binding.optionsSnakeColorBtn.text =
+            sharedPref.getString(PreferenceKeys.snakeColorHex, "#00FF00")
         //--FoodColor
-        binding.optionsFoodColorBtn.setBackgroundColor(sharedPref.getInt(PreferenceKeys.foodColor, Color.RED))
-        binding.optionsFoodColorBtn.text = sharedPref.getString(PreferenceKeys.foodColorHex, "#FF0000")
+        binding.optionsFoodColorBtn.setBackgroundColor(
+            sharedPref.getInt(
+                PreferenceKeys.foodColor,
+                Color.RED
+            )
+        )
+        binding.optionsFoodColorBtn.text =
+            sharedPref.getString(PreferenceKeys.foodColorHex, "#FF0000")
         //-Game settings
         //--Control sensibility
         binding.optionsControlSensibilitySeekBar.progress =
             sharedPref.getFloat(PreferenceKeys.sensibility, 2F).toInt()
         //--Snake speed
-        binding.optionsSnakeSpeedSeekBar.progress = sharedPref.getLong(PreferenceKeys.snakeSpeed, 150L).toInt()
+        binding.optionsSnakeSpeedSeekBar.progress =
+            sharedPref.getLong(PreferenceKeys.snakeSpeed, 150L).toInt()
         //-Language
-        //Todo implement it Gian-Luca
+        binding.optionsLanguageDropDown.setSelection(sharedPref.getInt("locale", 0))
     }
 }

@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/optionsActivityLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/optionsActivityLayout"
-    tools:context=".activities.OptionsActivity"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    tools:context=".activities.OptionsActivity">
 
 
     <TextView
@@ -46,7 +46,6 @@
             android:text="@string/rd_system_label_txt" />
 
 
-
     </RadioGroup>
 
     <TextView
@@ -83,7 +82,7 @@
         android:id="@+id/options_game_settings_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/options_game_settings_txt"/>
+        android:text="@string/options_game_settings_txt" />
 
     <TextView
         android:id="@+id/options_control_sensibility_title"
@@ -104,7 +103,7 @@
         android:id="@+id/options_snake_speed_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/options_snake_speed_txt"/>
+        android:text="@string/options_snake_speed_txt" />
 
     <SeekBar
         android:id="@+id/options_snake_speed_seekBar"
@@ -130,5 +129,6 @@
     <Spinner
         android:id="@+id/options_language_drop_down"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:entries="@array/languages_string_array" />
 </LinearLayout>

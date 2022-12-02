@@ -22,4 +22,8 @@
     <string name="save_speed_toast">New Snake speed is: %d</string>
     <string name="save_sensibility_toast">New Control sensibility is: %d</string>
     <string name="login_failed_toast">Login failed: %s</string>
+    <string-array name="languages_string_array">
+        <item name="en">en</item>
+        <item name="de">de</item>
+    </string-array>
 </resources>
