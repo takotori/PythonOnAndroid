@@ -6,6 +6,7 @@ import android.net.ConnectivityManager
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
 import com.example.pythonOnAndroid.databinding.ActivityLoginBinding
 import com.firebase.ui.auth.AuthUI
 import com.firebase.ui.auth.FirebaseAuthUIActivityResultContract
@@ -23,6 +24,8 @@ class LoginActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        val sharedPref = getSharedPreferences("appPreferences", MODE_PRIVATE)
+        AppCompatDelegate.setDefaultNightMode(sharedPref.getInt("chosenTheme",1))
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
         if (isOnline(applicationContext)) {
