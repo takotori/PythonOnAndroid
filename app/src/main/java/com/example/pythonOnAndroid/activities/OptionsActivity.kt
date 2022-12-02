@@ -8,6 +8,7 @@ import android.widget.Button
 import android.widget.SeekBar
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatDelegate
+import com.example.pythonOnAndroid.R
 import com.example.pythonOnAndroid.databinding.ActivityOptionsBinding
 import com.github.dhaval2404.colorpicker.ColorPickerDialog
 import com.github.dhaval2404.colorpicker.model.ColorShape
@@ -20,11 +21,11 @@ class OptionsActivity : AppCompatActivity() {
         binding = ActivityOptionsBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val sharedPref = getSharedPreferences("appPreferences", MODE_PRIVATE)
+        val sharedPref = getSharedPreferences(PreferenceKeys.preferenceName, MODE_PRIVATE)
         val editor = sharedPref.edit()
         initOptions(sharedPref)
-        val defaultSnakeColor = sharedPref.getString("snakeColorHex", "#00FF00").toString()
-        val defaultFoodColor = sharedPref.getString("foodColorHex", "#FF0000").toString()
+        val defaultSnakeColor = sharedPref.getString(PreferenceKeys.snakeColorHex, "#00FF00").toString()
+        val defaultFoodColor = sharedPref.getString(PreferenceKeys.foodColorHex, "#FF0000").toString()
 
         binding.optionsThemesRdGroup.setOnCheckedChangeListener { _, checkId ->
             val chosenThemeOption: Int = when (checkId) {
@@ -34,31 +35,31 @@ class OptionsActivity : AppCompatActivity() {
             }
             AppCompatDelegate.setDefaultNightMode(chosenThemeOption)
             editor.apply{
-                putInt("chosenCheckBoxTheme",checkId)
-                putInt("chosenTheme",chosenThemeOption)
+                putInt(PreferenceKeys.chosenCheckBoxTheme,checkId)
+                putInt(PreferenceKeys.chosenTheme,chosenThemeOption)
                 apply()
             }
         }
 
         binding.optionsSnakeColorBtn.setOnClickListener {
             displayColorPickerDialog(
-                "Pick Snake Color",
+                resources.getString(R.string.snake_color_picker_title),
                 defaultSnakeColor,
                 binding.optionsSnakeColorBtn,
                 editor,
-                "snakeColor",
-                "snakeColorHex"
+                PreferenceKeys.snakeColor,
+                PreferenceKeys.snakeColorHex
             )
         }
 
         binding.optionsFoodColorBtn.setOnClickListener {
             displayColorPickerDialog(
-                "Pick Food Color",
+                resources.getString(R.string.food_color_picker_title),
                 defaultFoodColor,
                 binding.optionsFoodColorBtn,
                 editor,
-                "foodColor",
-                "foodColorHex"
+                PreferenceKeys.foodColor,
+                PreferenceKeys.foodColorHex
             )
         }
 
@@ -72,12 +73,12 @@ class OptionsActivity : AppCompatActivity() {
                     sensibility = seekbar.progress + 1
                 }
                 editor.apply {
-                    putFloat("sensibility", sensibility.toFloat())
+                    putFloat(PreferenceKeys.sensibility, sensibility.toFloat())
                     apply()
                 }
                 Toast.makeText(
                     this@OptionsActivity,
-                    "New Control sensibility is: $sensibility",
+                    resources.getString(R.string.save_sensibility_toast).format(sensibility),
                     Toast.LENGTH_LONG
                 ).show()
             }
@@ -93,11 +94,11 @@ class OptionsActivity : AppCompatActivity() {
                     snakeSpeed = seekbar.progress
                 }
                 editor.apply {
-                    putLong("snakeSpeed", snakeSpeed.toLong())
+                    putLong(PreferenceKeys.snakeSpeed, snakeSpeed.toLong())
                     apply()
                 }
                 Toast.makeText(
-                    this@OptionsActivity, "New Snake speed is: $snakeSpeed", Toast.LENGTH_LONG
+                    this@OptionsActivity, resources.getString(R.string.save_speed_toast).format(snakeSpeed), Toast.LENGTH_LONG
                 ).show()
             }
         })
@@ -126,23 +127,23 @@ class OptionsActivity : AppCompatActivity() {
     private fun initOptions(sharedPref: SharedPreferences) {
         //-Style
         //--Themes
-        binding.optionsThemesRdGroup.check(sharedPref.getInt("chosenCheckBoxTheme",1))
+        binding.optionsThemesRdGroup.check(sharedPref.getInt(PreferenceKeys.chosenCheckBoxTheme,1))
         //--SnakeColor
         binding.optionsSnakeColorBtn.setBackgroundColor(
             sharedPref.getInt(
-                "snakeColor", Color.GREEN
+                PreferenceKeys.snakeColor, Color.GREEN
             )
         )
-        binding.optionsSnakeColorBtn.text = sharedPref.getString("snakeColorHex", "#00FF00")
+        binding.optionsSnakeColorBtn.text = sharedPref.getString(PreferenceKeys.snakeColorHex, "#00FF00")
         //--FoodColor
-        binding.optionsFoodColorBtn.setBackgroundColor(sharedPref.getInt("foodColor", Color.RED))
-        binding.optionsFoodColorBtn.text = sharedPref.getString("foodColorHex", "#FF0000")
+        binding.optionsFoodColorBtn.setBackgroundColor(sharedPref.getInt(PreferenceKeys.foodColor, Color.RED))
+        binding.optionsFoodColorBtn.text = sharedPref.getString(PreferenceKeys.foodColorHex, "#FF0000")
         //-Game settings
         //--Control sensibility
         binding.optionsControlSensibilitySeekBar.progress =
-            sharedPref.getFloat("sensibility", 2F).toInt()
+            sharedPref.getFloat(PreferenceKeys.sensibility, 2F).toInt()
         //--Snake speed
-        binding.optionsSnakeSpeedSeekBar.progress = sharedPref.getLong("snakeSpeed", 150L).toInt()
+        binding.optionsSnakeSpeedSeekBar.progress = sharedPref.getLong(PreferenceKeys.snakeSpeed, 150L).toInt()
         //-Language
         //Todo implement it Gian-Luca
     }

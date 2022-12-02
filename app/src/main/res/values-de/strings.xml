@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Python on Android</string>
+    <string name="startGameBtn_txt">Spiel starten</string>
+    <string name="scoreboardBtn_txt">Rangliste</string>
+    <string name="optionsBtn_txt">Optionen</string>
+    <string name="logoutBtn_txt">Abmelden</string>
+    <string name="score_place_holder_txt">PUNKTE: %d</string>
+    <string name="options_style_title_txt">Style</string>
+    <string name="options_themes_txt">Themes</string>
+    <string name="options_snake_color_txt">Schlangenfarbe</string>
+    <string name="options_food_color_txt">Futterfarbe</string>
+    <string name="options_game_settings_txt">Einstellungen</string>
+    <string name="options_control_sensibility_txt">Steuerungs Sensibilität</string>
+    <string name="options_snake_speed_txt">Schlangengeschwindigkeit</string>
+    <string name="options_language_txt">Sprache</string>
+    <string name="rd_light_label_txt">Hell</string>
+    <string name="rd_dark_label_txt">Dunkel</string>
+    <string name="rd_system_label_txt">Gerät</string>
+    <string name="snake_color_picker_title">Schlangenfarbe auswählen</string>
+    <string name="food_color_picker_title">Futterfarbe auswählen</string>
+    <string name="save_speed_toast">Neue Geschwindigkeit ist: %d</string>
+    <string name="save_sensibility_toast">Neue Sensibilität ist: %d</string>
+    <string name="login_failed_toast">Anmeldung fehlgeschlagen: %s</string>
+</resources>

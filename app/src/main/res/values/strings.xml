@@ -4,7 +4,7 @@
     <string name="scoreboardBtn_txt">Scoreboard</string>
     <string name="optionsBtn_txt">Options</string>
     <string name="logoutBtn_txt">Logout</string>
-    <string name="score_place_holder_txt">SCORE: 0</string>
+    <string name="score_place_holder_txt">SCORE: %d</string>
     <string name="options_style_title_txt">Style</string>
     <string name="options_themes_txt">Themes</string>
     <string name="options_snake_color_txt">Snake color</string>
@@ -13,6 +13,13 @@
     <string name="options_control_sensibility_txt">Control sensibility</string>
     <string name="options_snake_speed_txt">Snake speed</string>
     <string name="options_language_txt">Language</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="rd_light_label_txt">Light</string>
+    <string name="rd_dark_label_txt">Dark</string>
+    <string name="rd_system_label_txt">System</string>
+    <string name="color_btn_placeHolder" translatable="false">#FFFF</string>
+    <string name="snake_color_picker_title">Pick Snake Color</string>
+    <string name="food_color_picker_title">Pick Food Color</string>
+    <string name="save_speed_toast">New Snake speed is: %d</string>
+    <string name="save_sensibility_toast">New Control sensibility is: %d</string>
+    <string name="login_failed_toast">Login failed: %s</string>
 </resources>

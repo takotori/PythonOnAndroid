@@ -30,20 +30,20 @@
             android:id="@+id/options_themes_rb_light"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Light" />
+            android:text="@string/rd_light_label_txt" />
 
         <!--radio button for dark theme-->
         <RadioButton
             android:id="@+id/options_themes_rb_dark"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Dark" />
+            android:text="@string/rd_dark_label_txt" />
 
         <RadioButton
             android:id="@+id/options_themes_rb_system"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="System" />
+            android:text="@string/rd_system_label_txt" />
 
 
 
@@ -59,7 +59,7 @@
         android:id="@+id/options_snake_color_btn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Button" />
+        android:text="@string/color_btn_placeHolder" />
 
     <TextView
         android:id="@+id/options_food_color_title"
@@ -71,7 +71,7 @@
         android:id="@+id/options_food_color_btn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Button" />
+        android:text="@string/color_btn_placeHolder" />
 
     <View
         android:id="@+id/divider"

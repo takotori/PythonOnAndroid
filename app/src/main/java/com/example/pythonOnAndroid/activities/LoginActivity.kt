@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
+import com.example.pythonOnAndroid.R
 import com.example.pythonOnAndroid.databinding.ActivityLoginBinding
 import com.firebase.ui.auth.AuthUI
 import com.firebase.ui.auth.FirebaseAuthUIActivityResultContract
@@ -24,8 +25,8 @@ class LoginActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val sharedPref = getSharedPreferences("appPreferences", MODE_PRIVATE)
-        AppCompatDelegate.setDefaultNightMode(sharedPref.getInt("chosenTheme",1))
+        val sharedPref = getSharedPreferences(PreferenceKeys.preferenceName, MODE_PRIVATE)
+        AppCompatDelegate.setDefaultNightMode(sharedPref.getInt(PreferenceKeys.chosenTheme, 1))
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
         if (isOnline(applicationContext)) {
@@ -60,13 +61,19 @@ class LoginActivity : AppCompatActivity() {
             // Sign in failed. If response is null the user canceled the
             // sign-in flow using the back button. Otherwise check
             // response.getError().getErrorCode() and handle the error.
-            Toast.makeText(applicationContext, "Login failed: $response", Toast.LENGTH_LONG).show()
+            Toast.makeText(
+                applicationContext,
+                resources.getString(R.string.save_speed_toast).format(response),
+                Toast.LENGTH_LONG
+            ).show()
         }
     }
 
     private fun isOnline(context: Context): Boolean {
-        val connectivityManager = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
-        val capabilities = connectivityManager.getNetworkCapabilities(connectivityManager.activeNetwork)
+        val connectivityManager =
+            context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        val capabilities =
+            connectivityManager.getNetworkCapabilities(connectivityManager.activeNetwork)
         return capabilities != null
     }
 }
