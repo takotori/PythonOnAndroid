@@ -2,6 +2,8 @@ package com.example.pythonOnAndroid.activities
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.pythonOnAndroid.LeaderboardAdapter
 import com.example.pythonOnAndroid.databinding.ActivityScoreBinding
 import com.google.firebase.database.FirebaseDatabase
 import java.util.SortedMap
@@ -19,14 +21,14 @@ class ScoreActivity : AppCompatActivity() {
             val map = sortedMapOf<String, Long>()
             it.children.forEach { data ->
                 map[data.key.toString()] = data.value as Long
-                createLeaderboard(map)
             }
+            createLeaderboard(map)
         }
     }
 
     private fun createLeaderboard(map: SortedMap<String, Long>) {
-        // todo add to linear layout
+        val sortedLeaderboard = map.toList().sortedBy { (_, value) -> value }.toList().reversed()
+        binding.leaderboard.adapter = LeaderboardAdapter(this, sortedLeaderboard)
+        binding.leaderboard.layoutManager = LinearLayoutManager(this)
     }
-
-
 }
