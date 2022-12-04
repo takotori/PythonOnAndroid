@@ -1,24 +1,32 @@
 package com.example.pythonOnAndroid.activities
 
 import android.content.Intent
+import android.content.SharedPreferences
 import android.hardware.Sensor
 import android.hardware.SensorEvent
 import android.hardware.SensorEventListener
 import android.hardware.SensorManager
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import com.example.pythonOnAndroid.Food
 import com.example.pythonOnAndroid.R
 import com.example.pythonOnAndroid.Snake
 import com.example.pythonOnAndroid.databinding.ActivityGameBinding
-import kotlinx.coroutines.*
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.FirebaseDatabase
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 class GameActivity : AppCompatActivity(), SensorEventListener, GameCallback {
     private lateinit var binding: ActivityGameBinding
     private lateinit var sensorManager: SensorManager
     private lateinit var endScreenFragment: Endscreen
+    private val user = FirebaseAuth.getInstance().currentUser
     private var movementSensitivity: Float = 2F
     private var score: Int = 0
+    private val url = "https://python-on-android-default-rtdb.europe-west1.firebasedatabase.app/"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,6 +45,10 @@ class GameActivity : AppCompatActivity(), SensorEventListener, GameCallback {
             .hide(endScreenFragment)
             .commit()
 
+        moveSnake(sharedPref)
+    }
+
+    private fun moveSnake(sharedPref: SharedPreferences) {
         CoroutineScope(Dispatchers.IO).launch {
             while (true) {
                 while (Snake.alive) {
@@ -49,7 +61,7 @@ class GameActivity : AppCompatActivity(), SensorEventListener, GameCallback {
                         Snake.bodyParts.removeAt(0)
                     }
                     binding.canvas.invalidate()
-                    delay(sharedPref.getLong(PreferenceKeys.snakeSpeed,150L))
+                    delay(sharedPref.getLong(PreferenceKeys.snakeSpeed, 150L))
                 }
             }
         }
@@ -58,38 +70,38 @@ class GameActivity : AppCompatActivity(), SensorEventListener, GameCallback {
     private fun updateScore(score: Int) {
         this.score = score
         runOnUiThread {
-            binding.scoreTextView.text = resources.getString(R.string.score_place_holder_txt).format(score)
-        }
-    }
-
-    private fun moveSnake() {
-        when (Snake.direction) {
-            "up" -> {
-                Snake.headY -= 50
-                checkPossibleMoves()
-            }
-            "down" -> {
-                Snake.headY += 50
-                checkPossibleMoves()
-            }
-            "left" -> {
-                Snake.headX -= 50
-                checkPossibleMoves()
-            }
-            "right" -> {
-                Snake.headX += 50
-                checkPossibleMoves()
-            }
+            binding.scoreTextView.text =
+                resources.getString(R.string.score_place_holder_txt).format(score)
         }
     }
 
     private fun checkPossibleMoves() {
         if (!Snake.possibleMove()) {
             Snake.alive = false
-            endScreenFragment.score  = score
+            endScreenFragment.score = score
             supportFragmentManager.beginTransaction()
                 .show(endScreenFragment)
                 .commitAllowingStateLoss()
+
+            if (user != null && !user.isAnonymous) {
+                var foundUser = false
+                FirebaseDatabase.getInstance(url).getReference("leaderboard").get()
+                    .addOnSuccessListener {
+                        it.children.forEach { data ->
+                            if (data.key == user.displayName) {
+                                foundUser = true
+                                if (score > data.value as Long) {
+                                    FirebaseDatabase.getInstance(url).getReference("leaderboard")
+                                        .child(user.displayName.toString()).setValue(score)
+                                }
+                            }
+                        }
+                    }
+                if (!foundUser) {
+                    FirebaseDatabase.getInstance(url).getReference("leaderboard")
+                        .child(user.displayName.toString()).setValue(score)
+                }
+            }
         }
     }
 
@@ -113,6 +125,27 @@ class GameActivity : AppCompatActivity(), SensorEventListener, GameCallback {
         )
     }
 
+    private fun moveSnake() {
+        when (Snake.direction) {
+            "up" -> {
+                Snake.headY -= 50
+                checkPossibleMoves()
+            }
+            "down" -> {
+                Snake.headY += 50
+                checkPossibleMoves()
+            }
+            "left" -> {
+                Snake.headX -= 50
+                checkPossibleMoves()
+            }
+            "right" -> {
+                Snake.headX += 50
+                checkPossibleMoves()
+            }
+        }
+    }
+
     private fun setUpSensor() {
         sensorManager = getSystemService(SENSOR_SERVICE) as SensorManager
         sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER)?.also {
@@ -126,7 +159,6 @@ class GameActivity : AppCompatActivity(), SensorEventListener, GameCallback {
     }
 
     override fun onSensorChanged(event: SensorEvent?) {
-
         if (event?.sensor?.type == Sensor.TYPE_ACCELEROMETER) {
             val sides = -event.values[0]
             val upDown = event.values[1]

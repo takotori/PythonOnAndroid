@@ -13,6 +13,8 @@ import com.firebase.ui.auth.AuthUI
 import com.firebase.ui.auth.FirebaseAuthUIActivityResultContract
 import com.firebase.ui.auth.data.model.FirebaseAuthUIAuthenticationResult
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 
 class LoginActivity : AppCompatActivity() {
     private lateinit var binding: ActivityLoginBinding
@@ -29,7 +31,8 @@ class LoginActivity : AppCompatActivity() {
         AppCompatDelegate.setDefaultNightMode(sharedPref.getInt(PreferenceKeys.chosenTheme, 1))
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        if (isOnline(applicationContext)) {
+
+        if (isOnline(applicationContext) && Firebase.auth.currentUser == null) {
             createSignInIntent()
         } else {
             startActivity(Intent(this, MenuActivity::class.java))

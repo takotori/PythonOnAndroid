@@ -19,9 +19,7 @@ class ScoreActivity : AppCompatActivity() {
 
         FirebaseDatabase.getInstance(url).getReference("leaderboard").get().addOnSuccessListener {
             val map = sortedMapOf<String, Long>()
-            it.children.forEach { data ->
-                map[data.key.toString()] = data.value as Long
-            }
+            it.children.forEach { data -> map[data.key.toString()] = data.value as Long }
             createLeaderboard(map)
         }
     }
