@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/optionsActivityLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/optionsActivityLayout"
-    tools:context=".activities.OptionsActivity"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    tools:context=".activities.OptionsActivity">
 
 
     <TextView
@@ -20,10 +20,33 @@
         android:layout_height="wrap_content"
         android:text="@string/options_themes_txt" />
 
-    <Spinner
-        android:id="@+id/options_themes_drop_down"
+    <RadioGroup
+        android:id="@+id/options_themes_rd_group"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content">
+
+        <!--radio button for light theme-->
+        <RadioButton
+            android:id="@+id/options_themes_rb_light"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/rd_light_label_txt" />
+
+        <!--radio button for dark theme-->
+        <RadioButton
+            android:id="@+id/options_themes_rb_dark"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/rd_dark_label_txt" />
+
+        <RadioButton
+            android:id="@+id/options_themes_rb_system"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/rd_system_label_txt" />
+
+
+    </RadioGroup>
 
     <TextView
         android:id="@+id/options_snake_color_title"
@@ -35,7 +58,7 @@
         android:id="@+id/options_snake_color_btn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Button" />
+        android:text="@string/color_btn_placeHolder" />
 
     <TextView
         android:id="@+id/options_food_color_title"
@@ -47,7 +70,7 @@
         android:id="@+id/options_food_color_btn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Button" />
+        android:text="@string/color_btn_placeHolder" />
 
     <View
         android:id="@+id/divider"
@@ -59,7 +82,7 @@
         android:id="@+id/options_game_settings_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/options_game_settings_txt"/>
+        android:text="@string/options_game_settings_txt" />
 
     <TextView
         android:id="@+id/options_control_sensibility_title"
@@ -72,22 +95,24 @@
         style="@style/Widget.AppCompat.SeekBar.Discrete"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:max="10"
-        android:progress="3" />
+        android:max="2"
+        android:min="0"
+        android:progress="1" />
 
     <TextView
         android:id="@+id/options_snake_speed_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/options_snake_speed_txt"/>
+        android:text="@string/options_snake_speed_txt" />
 
     <SeekBar
         android:id="@+id/options_snake_speed_seekBar"
-        style="@style/Widget.AppCompat.SeekBar.Discrete"
+        style="@style/Widget.AppCompat.SeekBar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:max="10"
-        android:progress="3" />
+        android:max="300"
+        android:min="1"
+        android:progress="150" />
 
     <View
         android:id="@+id/divider2"
@@ -104,5 +129,6 @@
     <Spinner
         android:id="@+id/options_language_drop_down"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:entries="@array/languages_string_array" />
 </LinearLayout>

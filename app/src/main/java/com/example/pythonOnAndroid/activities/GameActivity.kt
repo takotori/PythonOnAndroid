@@ -8,6 +8,7 @@ import android.hardware.SensorManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.example.pythonOnAndroid.Food
+import com.example.pythonOnAndroid.R
 import com.example.pythonOnAndroid.Snake
 import com.example.pythonOnAndroid.databinding.ActivityGameBinding
 import kotlinx.coroutines.*
@@ -15,15 +16,16 @@ import kotlinx.coroutines.*
 class GameActivity : AppCompatActivity(), SensorEventListener, GameCallback {
     private lateinit var binding: ActivityGameBinding
     private lateinit var sensorManager: SensorManager
-    private lateinit var endScreenFragment: Endscreen;
+    private lateinit var endScreenFragment: Endscreen
     private var movementSensitivity: Float = 2F
-    private var snakeSpeed: Long = 150
     private var score: Int = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityGameBinding.inflate(layoutInflater)
-        binding.scoreTextView.text = "SCORE: 0"
+        binding.scoreTextView.text = resources.getString(R.string.score_place_holder_txt).format(0)
+        val sharedPref = getSharedPreferences(PreferenceKeys.preferenceName, MODE_PRIVATE)
+        movementSensitivity = sharedPref.getFloat(PreferenceKeys.sensibility, 2F)
 
         setContentView(binding.root)
         setUpSensor()
@@ -47,7 +49,7 @@ class GameActivity : AppCompatActivity(), SensorEventListener, GameCallback {
                         Snake.bodyParts.removeAt(0)
                     }
                     binding.canvas.invalidate()
-                    delay(snakeSpeed)
+                    delay(sharedPref.getLong(PreferenceKeys.snakeSpeed,150L))
                 }
             }
         }
@@ -56,7 +58,7 @@ class GameActivity : AppCompatActivity(), SensorEventListener, GameCallback {
     private fun updateScore(score: Int) {
         this.score = score
         runOnUiThread {
-            binding.scoreTextView.text = "SCORE: $score"
+            binding.scoreTextView.text = resources.getString(R.string.score_place_holder_txt).format(score)
         }
     }
 
@@ -124,6 +126,7 @@ class GameActivity : AppCompatActivity(), SensorEventListener, GameCallback {
     }
 
     override fun onSensorChanged(event: SensorEvent?) {
+
         if (event?.sensor?.type == Sensor.TYPE_ACCELEROMETER) {
             val sides = -event.values[0]
             val upDown = event.values[1]

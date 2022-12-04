@@ -6,6 +6,7 @@ import android.content.Context
 import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.Paint
+import androidx.appcompat.app.AppCompatActivity
 
 class CanvasView @JvmOverloads constructor(
     context: Context,
@@ -17,10 +18,12 @@ class CanvasView @JvmOverloads constructor(
     private val food = Paint()
     private val level = Paint()
 
+
     override fun onDraw(canvas: Canvas?) {
         super.onDraw(canvas)
-        snakeBody.color = Color.GREEN
-        food.color = Color.RED
+        val sharedPref = context.getSharedPreferences("appPreferences", AppCompatActivity.MODE_PRIVATE)
+        snakeBody.color = sharedPref.getInt("snakeColor", Color.GREEN)
+        food.color = sharedPref.getInt("foodColor", Color.RED)
         level.color = Color.DKGRAY
 
         canvas?.drawRect(0f, 0f, 1050f, 1050f, level)
