@@ -13,10 +13,10 @@ import com.example.pythonOnAndroid.R
 private const val ARG_PARAM1 = "Score"
 
 class Endscreen : Fragment() {
-    private lateinit var callback : GameCallback
-    private lateinit var quitBtn : Button;
-    private lateinit var restartBtn : Button;
-    private lateinit var scoreTxt : TextView;
+    private lateinit var callback: GameCallback
+    private lateinit var quitBtn: Button
+    private lateinit var restartBtn: Button
+    private lateinit var scoreTxt: TextView
     var score: Int = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -30,7 +30,7 @@ class Endscreen : Fragment() {
         super.onAttach(context)
         try {
             callback = context as GameCallback
-        } catch (e : ClassCastException) {
+        } catch (e: ClassCastException) {
             throw ClassCastException("Owner activity must implement Callback")
         }
     }

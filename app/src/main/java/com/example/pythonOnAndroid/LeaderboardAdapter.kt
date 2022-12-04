@@ -7,7 +7,10 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 
-class LeaderboardAdapter(private val context: Context, private val myList: List<Pair<String, Long>>) : RecyclerView.Adapter<LeaderboardAdapter.ViewHolder>() {
+class LeaderboardAdapter(
+    private val context: Context,
+    private val myList: List<Pair<String, Long>>
+) : RecyclerView.Adapter<LeaderboardAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val myListItem = LayoutInflater.from(context).inflate(R.layout.list_item, parent, false)
