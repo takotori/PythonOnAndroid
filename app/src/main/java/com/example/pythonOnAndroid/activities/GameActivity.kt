@@ -7,6 +7,7 @@ import android.hardware.SensorEvent
 import android.hardware.SensorEventListener
 import android.hardware.SensorManager
 import android.os.Bundle
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import com.example.pythonOnAndroid.Food
 import com.example.pythonOnAndroid.R
@@ -80,33 +81,26 @@ class GameActivity : AppCompatActivity(), SensorEventListener, GameCallback {
                 endscreen = Endscreen(score)
                 endscreen.show(supportFragmentManager, "Endscreen")
                 showDialog = false
+                updateScoreOnDB()
             }
-
-            updateScoreOnDB()
         }
     }
 
     private fun updateScoreOnDB() {
         val user = FirebaseAuth.getInstance().currentUser
         if (user != null && !user.isAnonymous) {
-            var foundUser = false
             val url = getString(R.string.dbURL)
-            FirebaseDatabase.getInstance(url).getReference("leaderboard").get()
-                .addOnSuccessListener {
-                    it.children.forEach { data ->
-                        if (data.key == user.displayName) {
-                            foundUser = true
-                            if (score > data.value as Long) {
-                                FirebaseDatabase.getInstance(url).getReference("leaderboard")
-                                    .child(user.displayName.toString()).setValue(score)
-                            }
-                        }
+            FirebaseDatabase.getInstance(url).getReference("leaderboard")
+                .child(user.displayName.toString()).get().addOnSuccessListener {
+                    if (!it.exists()) {
+                        FirebaseDatabase.getInstance(url).getReference("leaderboard")
+                            .child(user.displayName.toString()).setValue(score)
+                    } else if (score > it.value as Long) {
+                        FirebaseDatabase.getInstance(url).getReference("leaderboard")
+                            .child(user.displayName.toString()).setValue(score)
                     }
+
                 }
-            if (!foundUser) {
-                FirebaseDatabase.getInstance(url).getReference("leaderboard")
-                    .child(user.displayName.toString()).setValue(score)
-            }
         }
     }
 
