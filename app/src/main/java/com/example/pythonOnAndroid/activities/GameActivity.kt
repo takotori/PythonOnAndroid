@@ -7,7 +7,7 @@ import android.hardware.SensorEvent
 import android.hardware.SensorEventListener
 import android.hardware.SensorManager
 import android.os.Bundle
-import android.util.Log
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import com.example.pythonOnAndroid.Food
 import com.example.pythonOnAndroid.R
@@ -23,13 +23,13 @@ import kotlinx.coroutines.launch
 class GameActivity : AppCompatActivity(), SensorEventListener, GameCallback {
     private lateinit var binding: ActivityGameBinding
     private lateinit var sensorManager: SensorManager
-    private lateinit var endscreen: Endscreen
-    private var showDialog = true
     private var movementSensitivity: Float = 2F
     private var score: Int = 0
+    private lateinit var addGameFinishDialog: AlertDialog
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        Snake.alive = true
         binding = ActivityGameBinding.inflate(layoutInflater)
         binding.scoreTextView.text = resources.getString(R.string.score_place_holder_txt).format(0)
         val sharedPref = getSharedPreferences(PreferenceKeys.preferenceName, MODE_PRIVATE)
@@ -37,6 +37,12 @@ class GameActivity : AppCompatActivity(), SensorEventListener, GameCallback {
 
         setContentView(binding.root)
         setUpSensor()
+        addGameFinishDialog = AlertDialog.Builder(this)
+            .setTitle(resources.getString(R.string.game_over_dialog_title))
+            .setIcon(R.drawable.ic_game_over)
+            .setNegativeButton(resources.getString(R.string.game_over_dialog_back_to_menu)) { _, _ ->
+                quitGame()
+            }.create()
 
         moveSnake(sharedPref)
     }
@@ -44,11 +50,12 @@ class GameActivity : AppCompatActivity(), SensorEventListener, GameCallback {
     override fun onStop() {
         super.onStop()
         Snake.reset()
+        Snake.alive = false
     }
 
     private fun moveSnake(sharedPref: SharedPreferences) {
         CoroutineScope(Dispatchers.IO).launch {
-            while (true) {
+            while (Snake.alive) {
                 while (Snake.alive) {
                     moveSnake()
                     Snake.bodyParts.add(arrayOf(Snake.headX, Snake.headY))
@@ -76,12 +83,19 @@ class GameActivity : AppCompatActivity(), SensorEventListener, GameCallback {
     private fun checkPossibleMoves() {
         if (!Snake.possibleMove()) {
             Snake.alive = false
-
-            if (showDialog) {
-                endscreen = Endscreen(score)
-                endscreen.show(supportFragmentManager, "Endscreen")
-                showDialog = false
-                updateScoreOnDB()
+            Snake.reset()
+            updateScoreOnDB()
+            if (!isFinishing) {
+                runOnUiThread {
+                    addGameFinishDialog.setMessage(
+                        resources.getString(R.string.game_over_dialog_score).format(score)
+                    )
+                    addGameFinishDialog.show()
+                }
+            }
+            binding.canvas.scaleX = 0F
+            runOnUiThread {
+                binding.scoreTextView.text = ""
             }
         }
     }
@@ -104,19 +118,16 @@ class GameActivity : AppCompatActivity(), SensorEventListener, GameCallback {
         }
     }
 
-    override fun restartGame() {
-        updateScore(0)
-        Snake.reset()
-        showDialog = true
-    }
-
     override fun quitGame() {
+        updateScore(0)
+        addGameFinishDialog.cancel()
         startActivity(
             Intent(
                 this@GameActivity,
                 MenuActivity::class.java
             )
         )
+        finish()
     }
 
     private fun moveSnake() {

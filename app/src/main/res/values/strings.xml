@@ -1,10 +1,11 @@
 <resources>
     <string name="app_name">Python on Android</string>
-    <string name="startGameBtn_txt">Start Game</string>
+    <string name="startGameBtn_txt">New Game</string>
     <string name="scoreboardBtn_txt">Scoreboard</string>
     <string name="optionsBtn_txt">Options</string>
     <string name="logoutBtn_txt">Logout</string>
     <string name="score_place_holder_txt">SCORE: %d</string>
+    <string name="game_over_dialog_score">Your score: %d</string>
     <string name="options_style_title_txt">Style</string>
     <string name="options_themes_txt">Themes</string>
     <string name="options_snake_color_txt">Snake color</string>
@@ -22,6 +23,8 @@
     <string name="save_speed_toast">New Snake speed is: %d</string>
     <string name="save_sensibility_toast">New Control sensibility is: %d</string>
     <string name="login_failed_toast">Login failed: %s</string>
+    <string name="game_over_dialog_back_to_menu">Back to menu</string>
+    <string name="game_over_dialog_title">Game Over!</string>
     <string name="dbURL" translatable="false">https://python-on-android-default-rtdb.europe-west1.firebasedatabase.app/</string>
     <string-array name="languages_string_array">
         <item name="en">en</item>

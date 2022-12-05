@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Python on Android</string>
-    <string name="startGameBtn_txt">Spiel starten</string>
+    <string name="startGameBtn_txt">Neues Spiel</string>
     <string name="scoreboardBtn_txt">Rangliste</string>
     <string name="optionsBtn_txt">Optionen</string>
     <string name="logoutBtn_txt">Abmelden</string>
@@ -26,4 +26,7 @@
         <item name="en">en</item>
         <item name="de">de</item>
     </string-array>
+    <string name="game_over_dialog_score">Deine Punkte: %d</string>
+    <string name="game_over_dialog_back_to_menu">Zurück zum Menü</string>
+    <string name="game_over_dialog_title">Das Spiel ist aus!</string>
 </resources>

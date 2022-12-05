@@ -6,6 +6,7 @@ import android.net.ConnectivityManager
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.example.pythonOnAndroid.Snake
 import com.example.pythonOnAndroid.databinding.ActivityMenuBinding
 import com.firebase.ui.auth.AuthUI
 import com.google.firebase.auth.FirebaseAuth
@@ -43,7 +44,6 @@ class MenuActivity : AppCompatActivity() {
                 )
             )
         }
-        //Todo change method in inside clickListener
         binding.startGameBtn.setOnClickListener {
             startActivity(
                 Intent(
