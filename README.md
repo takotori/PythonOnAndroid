@@ -13,3 +13,5 @@ und offline in der Datenbank geschrieben.
 * Verwendung von Jetpack-Komponenten    **(min. 1 Punkt)**
 * Integration von Drittkomponenten      **(min. 1 Punkt)**
 * Ressourcen: Unterschiedliche Styles   **(min. 1 Punkt)**
+* Funktionalität pro Screen **(OptionActivity, GameActivity, ScoreActivity und MenuActivity plus LogginActivity min. 3 Punkte)**
+Total Punkte min: **15 Punkte**
