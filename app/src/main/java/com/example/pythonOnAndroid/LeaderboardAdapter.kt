@@ -9,27 +9,27 @@ import androidx.recyclerview.widget.RecyclerView
 
 class LeaderboardAdapter(
     private val context: Context,
-    private val myList: List<Pair<String, Long>>
+    private val leaderboard: List<Pair<String, Long>>
 ) : RecyclerView.Adapter<LeaderboardAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val myListItem = LayoutInflater.from(context).inflate(R.layout.list_item, parent, false)
-        return ViewHolder(myListItem)
+        val entry = LayoutInflater.from(context).inflate(R.layout.list_item, parent, false)
+        return ViewHolder(entry)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(myList[position], position + 1)
+        holder.bind(leaderboard[position], position + 1)
     }
 
     override fun getItemCount(): Int {
-        return myList.size
+        return leaderboard.size
     }
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        fun bind(myItem: Pair<String, Long>, position: Int) {
+        fun bind(leaderboardEntry: Pair<String, Long>, position: Int) {
             itemView.findViewById<TextView>(R.id.rank).text = position.toString()
-            itemView.findViewById<TextView>(R.id.playerName).text = myItem.first
-            itemView.findViewById<TextView>(R.id.score).text = myItem.second.toString()
+            itemView.findViewById<TextView>(R.id.playerName).text = leaderboardEntry.first
+            itemView.findViewById<TextView>(R.id.score).text = leaderboardEntry.second.toString()
         }
     }
 }
