@@ -22,7 +22,8 @@ import kotlinx.coroutines.launch
 class GameActivity : AppCompatActivity(), SensorEventListener, GameCallback {
     private lateinit var binding: ActivityGameBinding
     private lateinit var sensorManager: SensorManager
-    private lateinit var endScreenFragment: Endscreen
+    private lateinit var endscreen: Endscreen
+    private var showDialog = true
     private var movementSensitivity: Float = 2F
     private var score: Int = 0
 
@@ -35,15 +36,13 @@ class GameActivity : AppCompatActivity(), SensorEventListener, GameCallback {
 
         setContentView(binding.root)
         setUpSensor()
-        // todo remove score
-        endScreenFragment = Endscreen.newInstance(score)
-
-        supportFragmentManager.beginTransaction()
-            .add(binding.endScreenFragment.id, endScreenFragment)
-            .hide(endScreenFragment)
-            .commit()
 
         moveSnake(sharedPref)
+    }
+
+    override fun onStop() {
+        super.onStop()
+        Snake.reset()
     }
 
     private fun moveSnake(sharedPref: SharedPreferences) {
@@ -76,10 +75,12 @@ class GameActivity : AppCompatActivity(), SensorEventListener, GameCallback {
     private fun checkPossibleMoves() {
         if (!Snake.possibleMove()) {
             Snake.alive = false
-            endScreenFragment.score = score
-            supportFragmentManager.beginTransaction()
-                .show(endScreenFragment)
-                .commitAllowingStateLoss()
+
+            if (showDialog) {
+                endscreen = Endscreen(score)
+                endscreen.show(supportFragmentManager, "Endscreen")
+                showDialog = false
+            }
 
             updateScoreOnDB()
         }
@@ -110,17 +111,12 @@ class GameActivity : AppCompatActivity(), SensorEventListener, GameCallback {
     }
 
     override fun restartGame() {
-        supportFragmentManager.beginTransaction()
-            .hide(endScreenFragment)
-            .commit()
         updateScore(0)
         Snake.reset()
+        showDialog = true
     }
 
     override fun quitGame() {
-        supportFragmentManager.beginTransaction()
-            .hide(endScreenFragment)
-            .commit()
         startActivity(
             Intent(
                 this@GameActivity,
