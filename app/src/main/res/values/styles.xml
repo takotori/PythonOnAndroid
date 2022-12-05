@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="menuButtons" parent="Theme.MaterialComponents.DayNight">
+        <item name="android:textSize">34sp</item>
+        <item name="android:layout_width">0dp</item>
+    </style>
+    <style name="optionsTitles" parent="Theme.MaterialComponents.DayNight">
+        <item name="android:textSize">20sp</item>
+        <item name="android:textFontWeight">800</item>
+        <item name="android:layout_marginTop">10sp</item>
+        <item name="android:layout_marginLeft">8sp</item>
+    </style>
+    <style name="optionsSubTitles" parent="Theme.MaterialComponents.DayNight">
+        <item name="android:textSize">16sp</item>
+        <item name="android:layout_marginTop">8sp</item>
+        <item name="android:layout_marginLeft">12sp</item>
+    </style>
+    <style name="optionsControl">
+        <item name="android:layout_marginLeft">12sp</item>
+        <item name="android:layout_marginRight">12sp</item>
+    </style>
+    <style name="optionsDivider">
+        <item name="android:layout_marginLeft">8sp</item>
+        <item name="android:layout_marginRight">8sp</item>
+        <item name="android:layout_height">2dp</item>
+        <item name="android:layout_marginTop">8dp</item>
+    </style>
+</resources>

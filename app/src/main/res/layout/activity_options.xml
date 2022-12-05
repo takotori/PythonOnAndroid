@@ -9,30 +9,31 @@
 
 
     <TextView
+        style="@style/optionsTitles"
         android:id="@+id/options_title_style"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/options_style_title_txt" />
 
     <TextView
+        style="@style/optionsSubTitles"
         android:id="@+id/options_themes_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/options_themes_txt" />
 
     <RadioGroup
+        style="@style/optionsControl"
         android:id="@+id/options_themes_rd_group"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <!--radio button for light theme-->
         <RadioButton
             android:id="@+id/options_themes_rb_light"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/rd_light_label_txt" />
 
-        <!--radio button for dark theme-->
         <RadioButton
             android:id="@+id/options_themes_rb_dark"
             android:layout_width="wrap_content"
@@ -49,42 +50,48 @@
     </RadioGroup>
 
     <TextView
+        style="@style/optionsSubTitles"
         android:id="@+id/options_snake_color_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/options_snake_color_txt" />
 
     <Button
+        style="@style/optionsControl"
         android:id="@+id/options_snake_color_btn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/color_btn_placeHolder" />
 
     <TextView
+        style="@style/optionsSubTitles"
         android:id="@+id/options_food_color_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/options_food_color_txt" />
 
     <Button
+        style="@style/optionsControl"
         android:id="@+id/options_food_color_btn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/color_btn_placeHolder" />
 
     <View
+        style="@style/optionsDivider"
         android:id="@+id/divider"
         android:layout_width="match_parent"
-        android:layout_height="1dp"
         android:background="?android:attr/listDivider" />
 
     <TextView
+        style="@style/optionsTitles"
         android:id="@+id/options_game_settings_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/options_game_settings_txt" />
 
     <TextView
+        style="@style/optionsSubTitles"
         android:id="@+id/options_control_sensibility_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -93,6 +100,8 @@
     <SeekBar
         android:id="@+id/options_control_sensibility_seekBar"
         style="@style/Widget.AppCompat.SeekBar.Discrete"
+        android:layout_marginStart="12sp"
+        android:layout_marginEnd="12sp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:max="2"
@@ -100,6 +109,7 @@
         android:progress="1" />
 
     <TextView
+        style="@style/optionsSubTitles"
         android:id="@+id/options_snake_speed_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -108,6 +118,8 @@
     <SeekBar
         android:id="@+id/options_snake_speed_seekBar"
         style="@style/Widget.AppCompat.SeekBar"
+        android:layout_marginStart="12sp"
+        android:layout_marginEnd="12sp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:max="300"
@@ -115,18 +127,20 @@
         android:progress="150" />
 
     <View
+        style="@style/optionsDivider"
         android:id="@+id/divider2"
         android:layout_width="match_parent"
-        android:layout_height="1dp"
         android:background="?android:attr/listDivider" />
 
     <TextView
+        style="@style/optionsTitles"
         android:id="@+id/options_language_txt"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/options_language_txt" />
 
     <Spinner
+        style="@style/optionsControl"
         android:id="@+id/options_language_drop_down"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

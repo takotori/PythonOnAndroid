@@ -8,49 +8,41 @@
     tools:context=".activities.MenuActivity">
 
     <Button
+        style="@style/menuButtons"
         android:id="@+id/startGameBtn"
-        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="24dp"
         android:text="@string/startGameBtn_txt"
-        android:textSize="34sp"
         app:layout_constraintBottom_toTopOf="@+id/scoreBoardBtn"
         app:layout_constraintEnd_toEndOf="@+id/scoreBoardBtn"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/scoreBoardBtn" />
 
     <Button
+        style="@style/menuButtons"
         android:id="@+id/scoreBoardBtn"
-        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
         android:layout_marginEnd="32dp"
-        android:layout_marginBottom="12dp"
         android:text="@string/scoreboardBtn_txt"
-        android:textSize="34sp"
         app:layout_constraintBottom_toTopOf="@+id/guideline2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
+        style="@style/menuButtons"
         android:id="@+id/optionsBtn"
-        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
         android:text="@string/optionsBtn_txt"
-        android:textSize="34sp"
         app:layout_constraintEnd_toEndOf="@+id/scoreBoardBtn"
         app:layout_constraintStart_toStartOf="@+id/scoreBoardBtn"
         app:layout_constraintTop_toBottomOf="@+id/scoreBoardBtn" />
 
     <Button
+        style="@style/menuButtons"
         android:id="@+id/logoutBtn"
-        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
         android:text="@string/logoutBtn_txt"
-        android:textSize="34sp"
         app:layout_constraintEnd_toEndOf="@+id/optionsBtn"
         app:layout_constraintStart_toStartOf="@+id/optionsBtn"
         app:layout_constraintTop_toBottomOf="@+id/optionsBtn" />
