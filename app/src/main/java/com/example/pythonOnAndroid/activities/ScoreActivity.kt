@@ -7,9 +7,7 @@ import com.example.pythonOnAndroid.LeaderboardAdapter
 import com.example.pythonOnAndroid.R
 import com.example.pythonOnAndroid.databinding.ActivityScoreBinding
 import com.google.firebase.database.FirebaseDatabase
-import com.google.firebase.database.ktx.database
-import com.google.firebase.ktx.Firebase
-import java.util.SortedMap
+import java.util.*
 
 class ScoreActivity : AppCompatActivity() {
     private lateinit var binding: ActivityScoreBinding
@@ -18,8 +16,6 @@ class ScoreActivity : AppCompatActivity() {
         binding = ActivityScoreBinding.inflate(layoutInflater)
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
-
-        Firebase.database.setPersistenceEnabled(true)
         val url = getString(R.string.dbURL)
         FirebaseDatabase.getInstance(url).getReference("leaderboard").get().addOnSuccessListener {
             val map = sortedMapOf<String, Long>()
