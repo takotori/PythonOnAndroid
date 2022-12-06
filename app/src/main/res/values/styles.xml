@@ -16,14 +16,27 @@
         <item name="android:layout_marginTop">8sp</item>
         <item name="android:layout_marginLeft">12sp</item>
     </style>
-    <style name="optionsControl">
+    <style name="optionsControl" parent="Theme.MaterialComponents.DayNight">
         <item name="android:layout_marginLeft">12sp</item>
         <item name="android:layout_marginRight">12sp</item>
     </style>
-    <style name="optionsDivider">
+    <style name="optionsDivider" parent="Theme.MaterialComponents.DayNight">
         <item name="android:layout_marginLeft">8sp</item>
         <item name="android:layout_marginRight">8sp</item>
         <item name="android:layout_height">2dp</item>
         <item name="android:layout_marginTop">8dp</item>
     </style>
+    <style name="optionsSeekBar" parent="@style/Widget.AppCompat.SeekBar">
+        <item name="android:layout_marginStart">12sp</item>
+        <item name="android:layout_marginEnd">12sp</item>
+        <item name="android:layout_height">24dp</item>
+        <item name="android:layout_width">match_parent</item>
+    </style>
+    <style name="optionsSeekBarDiscrete" parent="@style/Widget.AppCompat.SeekBar.Discrete">
+        <item name="android:layout_marginStart">12sp</item>
+        <item name="android:layout_marginEnd">12sp</item>
+        <item name="android:layout_height">24dp</item>
+        <item name="android:layout_width">match_parent</item>
+    </style>
+
 </resources>

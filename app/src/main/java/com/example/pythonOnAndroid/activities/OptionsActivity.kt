@@ -100,7 +100,7 @@ class OptionsActivity : AppCompatActivity() {
                     snakeSpeed = seekbar.progress
                 }
                 editor.apply {
-                    putLong(PreferenceKeys.snakeSpeed, snakeSpeed.toLong())
+                    putLong(PreferenceKeys.snakeSpeed, 300L - snakeSpeed.toLong())
                     apply()
                 }
                 Toast.makeText(
@@ -177,7 +177,7 @@ class OptionsActivity : AppCompatActivity() {
             sharedPref.getFloat(PreferenceKeys.sensibility, 2F).toInt()
         //--Snake speed
         binding.optionsSnakeSpeedSeekBar.progress =
-            sharedPref.getLong(PreferenceKeys.snakeSpeed, 150L).toInt()
+            300 - sharedPref.getLong(PreferenceKeys.snakeSpeed, 150L).toInt()
         //-Language
         binding.optionsLanguageDropDown.setSelection(sharedPref.getInt("locale", 0))
     }

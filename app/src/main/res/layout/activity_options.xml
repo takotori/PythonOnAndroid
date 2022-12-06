@@ -99,11 +99,7 @@
 
     <SeekBar
         android:id="@+id/options_control_sensibility_seekBar"
-        style="@style/Widget.AppCompat.SeekBar.Discrete"
-        android:layout_marginStart="12sp"
-        android:layout_marginEnd="12sp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        style="@style/optionsSeekBarDiscrete"
         android:max="2"
         android:min="0"
         android:progress="1" />
@@ -117,12 +113,8 @@
 
     <SeekBar
         android:id="@+id/options_snake_speed_seekBar"
-        style="@style/Widget.AppCompat.SeekBar"
-        android:layout_marginStart="12sp"
-        android:layout_marginEnd="12sp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:max="300"
+        style="@style/optionsSeekBar"
+        android:max="299"
         android:min="1"
         android:progress="150" />
 
