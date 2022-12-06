@@ -20,7 +20,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
-class GameActivity : AppCompatActivity(), SensorEventListener, GameCallback {
+class GameActivity : AppCompatActivity(), SensorEventListener {
     private lateinit var binding: ActivityGameBinding
     private lateinit var sensorManager: SensorManager
     private var movementSensitivity: Float = 2F
@@ -42,14 +42,7 @@ class GameActivity : AppCompatActivity(), SensorEventListener, GameCallback {
             .setNegativeButton(resources.getString(R.string.game_over_dialog_back_to_menu)) { _, _ ->
                 quitGame()
             }.create()
-
         moveSnake(sharedPref)
-    }
-
-    override fun onStop() {
-        super.onStop()
-        Snake.reset()
-        Snake.alive = false
     }
 
     private fun moveSnake(sharedPref: SharedPreferences) {
@@ -112,7 +105,7 @@ class GameActivity : AppCompatActivity(), SensorEventListener, GameCallback {
         }
     }
 
-    override fun quitGame() {
+    private fun quitGame() {
         updateScore(0)
         addGameFinishDialog.cancel()
         startActivity(
@@ -187,6 +180,12 @@ class GameActivity : AppCompatActivity(), SensorEventListener, GameCallback {
 
     override fun onAccuracyChanged(p0: Sensor?, p1: Int) {
         return
+    }
+
+    override fun onStop() {
+        super.onStop()
+        Snake.reset()
+        Snake.alive = false
     }
 
     override fun onDestroy() {
