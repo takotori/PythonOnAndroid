@@ -41,6 +41,7 @@ class LoginActivity : AppCompatActivity() {
 
     private fun createSignInIntent() {
         val providers = arrayListOf(
+            AuthUI.IdpConfig.EmailBuilder().build(),
             AuthUI.IdpConfig.GoogleBuilder().build(),
             AuthUI.IdpConfig.AnonymousBuilder().build()
         )
@@ -49,6 +50,8 @@ class LoginActivity : AppCompatActivity() {
             .createSignInIntentBuilder()
             .setIsSmartLockEnabled(false)
             .setAvailableProviders(providers)
+            .setTheme(R.style.Theme_PythonOnAndroid)
+            .setLogo(R.drawable.python_on_android)
             .build()
         signInLauncher.launch(signInIntent)
     }
