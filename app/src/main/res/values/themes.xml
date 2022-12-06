@@ -2,12 +2,12 @@
     <!-- Base application theme. -->
     <style name="Theme.PythonOnAndroid" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <!-- Primary brand color. -->
-        <item name="colorPrimary">#0D47A1</item>
-        <item name="colorPrimaryVariant">#002171</item>
+        <item name="colorPrimary">#d0192f</item>
+        <item name="colorPrimaryVariant">#f02e3c</item>
         <item name="colorOnPrimary">@color/white</item>
         <!-- Secondary brand color. -->
-        <item name="colorSecondary">#FDD835</item>
-        <item name="colorSecondaryVariant">#FFFF6B</item>
+        <item name="colorSecondary">#5e9900</item>
+        <item name="colorSecondaryVariant">#00993b</item>
         <item name="colorOnSecondary">@color/black</item>
         <!-- Status bar color. -->
         <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>

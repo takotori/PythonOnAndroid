@@ -25,6 +25,8 @@
                 android:value="" />
         </activity>
         <activity
+            android:configChanges="orientation"
+            android:screenOrientation="portrait"
             android:name=".activities.OptionsActivity"
             android:exported="false">
             <meta-data
@@ -32,6 +34,8 @@
                 android:value="" />
         </activity>
         <activity
+            android:configChanges="orientation"
+            android:screenOrientation="portrait"
             android:name=".activities.ScoreActivity"
             android:exported="false">
             <meta-data
@@ -39,6 +43,8 @@
                 android:value="" />
         </activity>
         <activity
+            android:configChanges="orientation"
+            android:screenOrientation="portrait"
             android:name=".activities.MenuActivity"
             android:exported="false">
             <meta-data
@@ -46,6 +52,8 @@
                 android:value="" />
         </activity>
         <activity
+            android:configChanges="orientation"
+            android:screenOrientation="portrait"
             android:name=".activities.LoginActivity"
             android:exported="true">
             <intent-filter>
