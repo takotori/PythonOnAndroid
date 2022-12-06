@@ -39,7 +39,6 @@ class GameActivity : AppCompatActivity(), SensorEventListener, GameCallback {
         setUpSensor()
         addGameFinishDialog = AlertDialog.Builder(this)
             .setTitle(resources.getString(R.string.game_over_dialog_title))
-            .setIcon(R.drawable.ic_game_over)
             .setNegativeButton(resources.getString(R.string.game_over_dialog_back_to_menu)) { _, _ ->
                 quitGame()
             }.create()
