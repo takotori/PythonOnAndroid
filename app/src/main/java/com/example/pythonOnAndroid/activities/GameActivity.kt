@@ -56,18 +56,16 @@ class GameActivity : AppCompatActivity(), SensorEventListener, GameCallback {
     private fun moveSnake(sharedPref: SharedPreferences) {
         CoroutineScope(Dispatchers.IO).launch {
             while (Snake.alive) {
-                while (Snake.alive) {
-                    moveSnake()
-                    Snake.bodyParts.add(arrayOf(Snake.headX, Snake.headY))
-                    if (Snake.headX == Food.posX && Snake.headY == Food.posY) {
-                        updateScore(score + 1)
-                        Food.generate()
-                    } else {
-                        Snake.bodyParts.removeAt(0)
-                    }
-                    binding.canvas.invalidate()
-                    delay(sharedPref.getLong(PreferenceKeys.snakeSpeed, 150L))
+                moveSnake()
+                Snake.bodyParts.add(arrayOf(Snake.headX, Snake.headY))
+                if (Snake.headX == Food.posX && Snake.headY == Food.posY) {
+                    updateScore(score + 1)
+                    Food.generate()
+                } else {
+                    Snake.bodyParts.removeAt(0)
                 }
+                binding.canvas.invalidate()
+                delay(sharedPref.getLong(PreferenceKeys.snakeSpeed, 150L))
             }
         }
     }
