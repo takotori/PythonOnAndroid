@@ -52,6 +52,11 @@ class LoginActivity : AppCompatActivity() {
             .setAvailableProviders(providers)
             .setTheme(R.style.Theme_PythonOnAndroid)
             .setLogo(R.drawable.python_on_android)
+            .setLockOrientation(true)
+            .setTosAndPrivacyPolicyUrls(
+                "http://www.staggeringbeauty.com/",
+                "https://theuselessweb.com/"
+            )
             .build()
         signInLauncher.launch(signInIntent)
     }
