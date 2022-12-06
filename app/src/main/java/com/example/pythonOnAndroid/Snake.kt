@@ -2,10 +2,10 @@ package com.example.pythonOnAndroid
 
 class Snake {
     companion object {
-        var headX = 0f
-        var headY = 0f
+        var headX = 500f
+        var headY = 500f
         var bodyParts = mutableListOf(arrayOf(0f, 0f))
-        var direction = "right"
+        var direction = "up"
         var alive = false
 
         fun possibleMove(): Boolean {
@@ -18,10 +18,10 @@ class Snake {
         }
 
         fun reset() {
-            headX = 0f
-            headY = 0f
+            headX = 500f
+            headY = 500f
             bodyParts = mutableListOf(arrayOf(0f, 0f))
-            direction = "right"
+            direction = "up"
         }
     }
 }

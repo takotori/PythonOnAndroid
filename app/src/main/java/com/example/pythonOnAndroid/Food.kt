@@ -2,8 +2,8 @@ package com.example.pythonOnAndroid
 
 class Food {
     companion object {
-        var posX = 500f
-        var posY = 500f
+        var posX = (1..20).random().toFloat() * 50
+        var posY = (1..20).random().toFloat() * 50
 
         fun generate() {
             posX = (1..20).random().toFloat() * 50
