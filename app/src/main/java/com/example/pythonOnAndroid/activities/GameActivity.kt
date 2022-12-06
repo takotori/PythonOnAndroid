@@ -102,17 +102,14 @@ class GameActivity : AppCompatActivity(), SensorEventListener, GameCallback {
         val user = FirebaseAuth.getInstance().currentUser
         if (user != null && !user.isAnonymous) {
             val url = getString(R.string.dbURL)
-            FirebaseDatabase.getInstance(url).getReference("leaderboard")
-                .child(user.displayName.toString()).get().addOnSuccessListener {
-                    if (!it.exists()) {
-                        FirebaseDatabase.getInstance(url).getReference("leaderboard")
-                            .child(user.displayName.toString()).setValue(score)
-                    } else if (score > it.value as Long) {
-                        FirebaseDatabase.getInstance(url).getReference("leaderboard")
-                            .child(user.displayName.toString()).setValue(score)
-                    }
-
+            val reference = FirebaseDatabase.getInstance(url).getReference("leaderboard")
+            reference.child(user.displayName.toString()).get().addOnSuccessListener {
+                if (!it.exists()) {
+                    reference.child(user.displayName.toString()).setValue(score)
+                } else if (score > it.value as Long) {
+                    reference.child(user.displayName.toString()).setValue(score)
                 }
+            }
         }
     }
 
