@@ -45,6 +45,8 @@ class OptionsActivity : AppCompatActivity() {
                 putInt(PreferenceKeys.chosenTheme, chosenThemeOption)
                 apply()
             }
+            finish()
+            startActivity(intent)
         }
 
         binding.optionsSnakeColorBtn.setOnClickListener {
