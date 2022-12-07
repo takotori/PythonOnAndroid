@@ -1,28 +1,65 @@
 package com.example.pythonOnAndroid.activities
 
-import android.content.Context
 import android.content.Intent
-import android.net.ConnectivityManager
 import android.os.Bundle
+import android.text.InputType
+import android.widget.EditText
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
-import com.example.pythonOnAndroid.Snake
+import androidx.lifecycle.lifecycleScope
+import com.example.pythonOnAndroid.Helper
 import com.example.pythonOnAndroid.databinding.ActivityMenuBinding
+import com.example.pythonOnAndroid.db.ScoreDatabase
+import com.example.pythonOnAndroid.db.ScoreEntity
 import com.firebase.ui.auth.AuthUI
 import com.google.firebase.auth.FirebaseAuth
+import kotlinx.coroutines.launch
+
 
 class MenuActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMenuBinding
+    private lateinit var offlineUserDialog: AlertDialog
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMenuBinding.inflate(layoutInflater)
+        val sharedPref = getSharedPreferences(PreferenceKeys.preferenceName, MODE_PRIVATE)
+        val editor = sharedPref.edit()
         setContentView(binding.root)
 
         val user = FirebaseAuth.getInstance().currentUser
         if (user == null || user.isAnonymous) {
             binding.logoutBtn.text = "Login"
         }
+
+        val dao = ScoreDatabase.getInstance(this).scoreDao
+        lifecycleScope.launch {
+            dao.insert(ScoreEntity("Gian-Luca Vogel", 2003))
+        }
+        // Set up the input
+        // Set up the input
+        val input = EditText(this)
+        input.inputType = InputType.TYPE_CLASS_TEXT
+
+        offlineUserDialog = AlertDialog.Builder(this)
+            .setTitle("Type in a Username")
+            .setView(input)
+            .setPositiveButton("Start"){_,_->
+                if(input.text.toString() != "" ){
+                    editor.apply{
+                        putString("userName",input.text.toString())
+                        apply()
+                    }
+                    startGame()
+                }else{
+                    Toast.makeText(this@MenuActivity,"Add user Name",Toast.LENGTH_LONG).show()
+                }
+
+            }
+            .setNegativeButton("Cancle"){_,_->
+                offlineUserDialog.cancel()
+            }.create()
 
         setupClickListener()
     }
@@ -36,6 +73,7 @@ class MenuActivity : AppCompatActivity() {
                 )
             )
         }
+
         binding.scoreBoardBtn.setOnClickListener {
             startActivity(
                 Intent(
@@ -44,16 +82,19 @@ class MenuActivity : AppCompatActivity() {
                 )
             )
         }
+
         binding.startGameBtn.setOnClickListener {
-            startActivity(
-                Intent(
-                    this@MenuActivity,
-                    GameActivity::class.java
-                )
-            )
+            if (Helper.isAppOnline(applicationContext)) {
+                startGame()
+            } else {
+                offlineUserDialog.show()
+            }
         }
+
+        binding.logoutBtn.isEnabled = Helper.isAppOnline(applicationContext)
+
         binding.logoutBtn.setOnClickListener {
-            if (isOnline(applicationContext)) {
+            if (Helper.isAppOnline(applicationContext)) {
                 signOut()
             } else {
                 Toast.makeText(applicationContext, "No internet connection", Toast.LENGTH_LONG)
@@ -70,11 +111,12 @@ class MenuActivity : AppCompatActivity() {
             }
     }
 
-    private fun isOnline(context: Context): Boolean {
-        val connectivityManager =
-            context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
-        val capabilities =
-            connectivityManager.getNetworkCapabilities(connectivityManager.activeNetwork)
-        return capabilities != null
+    private fun startGame(){
+        startActivity(
+            Intent(
+                this@MenuActivity,
+                GameActivity::class.java
+            )
+        )
     }
 }

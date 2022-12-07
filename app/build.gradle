@@ -4,6 +4,8 @@ plugins {
     id 'com.google.gms.google-services'
     id 'com.google.firebase.crashlytics'
     id 'com.google.firebase.firebase-perf'
+    id 'kotlin-android'
+    id 'kotlin-kapt'
 }
 
 android {
@@ -31,6 +33,11 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+
+    packagingOptions {
+        exclude 'META-INF/atomicfu.kotlin_module'
+    }
+
     kotlinOptions {
         jvmTarget = '1.8'
     }
@@ -49,6 +56,7 @@ dependencies {
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
     implementation "androidx.lifecycle:lifecycle-livedata-ktx:$lifecycle_version"
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version"
+    implementation "androidx.lifecycle:lifecycle-runtime-ktx:2.4.0"
 
     implementation platform('com.google.firebase:firebase-bom:31.1.0')
     implementation 'com.firebaseui:firebase-ui-auth:7.2.0'
@@ -67,4 +75,9 @@ dependencies {
     androidTestImplementation 'androidx.test.ext:junit:1.1.4'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.0'
     implementation 'com.github.Dhaval2404:ColorPicker:2.3'
+
+    // Room components
+    implementation "androidx.room:room-ktx:2.4.3"
+    kapt "androidx.room:room-compiler:2.4.3"
+    androidTestImplementation "androidx.room:room-testing:2.4.3"
 }

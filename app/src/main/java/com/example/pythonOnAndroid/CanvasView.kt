@@ -21,7 +21,8 @@ class CanvasView @JvmOverloads constructor(
 
     override fun onDraw(canvas: Canvas?) {
         super.onDraw(canvas)
-        val sharedPref = context.getSharedPreferences("appPreferences", AppCompatActivity.MODE_PRIVATE)
+        val sharedPref =
+            context.getSharedPreferences("appPreferences", AppCompatActivity.MODE_PRIVATE)
         snakeBody.color = sharedPref.getInt("snakeColor", Color.GREEN)
         food.color = sharedPref.getInt("foodColor", Color.RED)
         level.color = Color.DKGRAY
@@ -30,7 +31,6 @@ class CanvasView @JvmOverloads constructor(
 
         // draw snake from array
         // left x, top y, right x+50, bottom y +50
-
         for (i in Snake.bodyParts) {
             canvas?.drawRect(i[0], i[1], i[0] + 45, i[1] + 45, snakeBody)
         }

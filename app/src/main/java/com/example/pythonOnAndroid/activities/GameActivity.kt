@@ -7,12 +7,18 @@ import android.hardware.SensorEvent
 import android.hardware.SensorEventListener
 import android.hardware.SensorManager
 import android.os.Bundle
+import android.util.Log
+import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.lifecycleScope
 import com.example.pythonOnAndroid.Food
+import com.example.pythonOnAndroid.Helper
 import com.example.pythonOnAndroid.R
 import com.example.pythonOnAndroid.Snake
 import com.example.pythonOnAndroid.databinding.ActivityGameBinding
+import com.example.pythonOnAndroid.db.ScoreDatabase
+import com.example.pythonOnAndroid.db.ScoreEntity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
 import kotlinx.coroutines.CoroutineScope
@@ -48,7 +54,7 @@ class GameActivity : AppCompatActivity(), SensorEventListener {
     private fun moveSnake(sharedPref: SharedPreferences) {
         CoroutineScope(Dispatchers.IO).launch {
             while (Snake.alive) {
-                moveSnake()
+                moveSnakeDirection(sharedPref)
                 Snake.bodyParts.add(arrayOf(Snake.headX, Snake.headY))
                 if (Snake.headX == Food.posX && Snake.headY == Food.posY) {
                     updateScore(score + 1)
@@ -70,11 +76,20 @@ class GameActivity : AppCompatActivity(), SensorEventListener {
         }
     }
 
-    private fun checkPossibleMoves() {
+    private fun checkPossibleMoves(sharedPref: SharedPreferences) {
         if (!Snake.possibleMove()) {
             Snake.alive = false
             Snake.reset()
-            updateScoreOnDB()
+            if(Helper.isAppOnline(applicationContext)){
+                updateScoreOnDB()
+            }else{
+                val test = score
+                val userName = sharedPref.getString("userName","Bla").toString()
+                val dao = ScoreDatabase.getInstance(this).scoreDao
+                lifecycleScope.launch {
+                    dao.insert(ScoreEntity(userName, test.toLong()))
+                }
+            }
             if (!isFinishing) {
                 runOnUiThread {
                     addGameFinishDialog.setMessage(
@@ -117,23 +132,23 @@ class GameActivity : AppCompatActivity(), SensorEventListener {
         finish()
     }
 
-    private fun moveSnake() {
+    private fun moveSnakeDirection(sharedPref: SharedPreferences) {
         when (Snake.direction) {
             "up" -> {
                 Snake.headY -= 50
-                checkPossibleMoves()
+                checkPossibleMoves(sharedPref)
             }
             "down" -> {
                 Snake.headY += 50
-                checkPossibleMoves()
+                checkPossibleMoves(sharedPref)
             }
             "left" -> {
                 Snake.headX -= 50
-                checkPossibleMoves()
+                checkPossibleMoves(sharedPref)
             }
             "right" -> {
                 Snake.headX += 50
-                checkPossibleMoves()
+                checkPossibleMoves(sharedPref)
             }
         }
     }

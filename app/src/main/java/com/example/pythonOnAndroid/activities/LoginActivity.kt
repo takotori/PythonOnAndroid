@@ -7,12 +7,12 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
+import com.example.pythonOnAndroid.Helper
 import com.example.pythonOnAndroid.R
 import com.example.pythonOnAndroid.databinding.ActivityLoginBinding
 import com.firebase.ui.auth.AuthUI
 import com.firebase.ui.auth.FirebaseAuthUIActivityResultContract
 import com.firebase.ui.auth.data.model.FirebaseAuthUIAuthenticationResult
-import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 
@@ -32,7 +32,7 @@ class LoginActivity : AppCompatActivity() {
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        if (isOnline(applicationContext) && Firebase.auth.currentUser == null) {
+        if (Helper.isAppOnline(applicationContext) && Firebase.auth.currentUser == null) {
             createSignInIntent()
         } else {
             startActivity(Intent(this, MenuActivity::class.java))
@@ -72,13 +72,5 @@ class LoginActivity : AppCompatActivity() {
                 Toast.LENGTH_LONG
             ).show()
         }
-    }
-
-    private fun isOnline(context: Context): Boolean {
-        val connectivityManager =
-            context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
-        val capabilities =
-            connectivityManager.getNetworkCapabilities(connectivityManager.activeNetwork)
-        return capabilities != null
     }
 }
