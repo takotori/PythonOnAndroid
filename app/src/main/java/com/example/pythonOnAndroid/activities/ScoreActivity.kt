@@ -26,22 +26,21 @@ class ScoreActivity : AppCompatActivity() {
         if(Helper.isAppOnline(applicationContext)) {
             FirebaseDatabase.getInstance(url).getReference("leaderboard").get()
                 .addOnSuccessListener {
-                    val map = sortedMapOf<String, Long>()
-                    it.children.forEach { data -> map[data.key.toString()] = data.value as Long }
+                    val map = sortedMapOf<String, Double>()
+                    it.children.forEach { data -> map[data.key.toString()] = data.value as Double }
                     createLeaderboard(map)
                 }
         }else{
             val dao = ScoreDatabase.getInstance(this).scoreDao
             lifecycleScope.launch {
-                dao.insert(ScoreEntity("Gian-Luca Vogel", 2000))
-                val test = dao.getAll()
-                var test2 = test.map{it.name to it.score}.toMap().toSortedMap()
-                createLeaderboard(test2);
+                val allScoresFromDb = dao.getAll()
+                val sorted = allScoresFromDb.associate { it.name to it.score }.toSortedMap()
+                createLeaderboard(sorted)
             }
         }
     }
 
-    private fun createLeaderboard(map: SortedMap<String, Long>) {
+    private fun createLeaderboard(map: SortedMap<String, Double>) {
         val sortedLeaderboard = map.toList().sortedBy { (_, value) -> value }.toList().reversed()
         binding.leaderboard.adapter = LeaderboardAdapter(this, sortedLeaderboard)
         binding.leaderboard.layoutManager = LinearLayoutManager(this)

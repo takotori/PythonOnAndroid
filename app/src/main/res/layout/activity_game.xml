@@ -27,10 +27,21 @@
         android:text="@string/score_place_holder_txt"
         android:textSize="34sp"
         android:textStyle="bold"
-        android:textColor="#444444"
-        android:background="@android:color/white"
         app:layout_constraintBottom_toTopOf="@+id/canvas"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/scoreMultiplier"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="48dp"
+        android:background="@android:color/white"
+        android:text="@string/score_multiplier_game"
+        android:textColor="#444444"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

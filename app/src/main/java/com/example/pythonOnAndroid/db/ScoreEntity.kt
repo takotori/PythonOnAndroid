@@ -7,5 +7,5 @@ import androidx.room.PrimaryKey
 @Entity(tableName = "scores")
 data class ScoreEntity (
     @PrimaryKey val name: String,
-    @ColumnInfo(name = "score") val score: Long
+    @ColumnInfo(name = "score") val score: Double
 )

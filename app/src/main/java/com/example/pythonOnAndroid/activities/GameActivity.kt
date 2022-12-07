@@ -25,21 +25,25 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import kotlin.math.roundToInt
 
 class GameActivity : AppCompatActivity(), SensorEventListener {
     private lateinit var binding: ActivityGameBinding
     private lateinit var sensorManager: SensorManager
     private var movementSensitivity: Float = 2F
-    private var score: Int = 0
+    private var score: Float = 0F
+    private var scoreMultiplier : Float = 0F
     private lateinit var addGameFinishDialog: AlertDialog
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         Snake.alive = true
         binding = ActivityGameBinding.inflate(layoutInflater)
-        binding.scoreTextView.text = resources.getString(R.string.score_place_holder_txt).format(0)
+        binding.scoreTextView.text = resources.getString(R.string.score_place_holder_txt).format(0F)
         val sharedPref = getSharedPreferences(PreferenceKeys.preferenceName, MODE_PRIVATE)
         movementSensitivity = sharedPref.getFloat(PreferenceKeys.sensibility, 2F)
+        scoreMultiplier = sharedPref.getFloat(PreferenceKeys.scoreMultiplier, 1F)
+        binding.scoreMultiplier.text = resources.getString(R.string.score_place_holder_txt).format(scoreMultiplier)
 
         setContentView(binding.root)
         setUpSensor()
@@ -57,7 +61,7 @@ class GameActivity : AppCompatActivity(), SensorEventListener {
                 moveSnakeDirection(sharedPref)
                 Snake.bodyParts.add(arrayOf(Snake.headX, Snake.headY))
                 if (Snake.headX == Food.posX && Snake.headY == Food.posY) {
-                    updateScore(score + 1)
+                    updateScore(score + (1 * scoreMultiplier))
                     Food.generate()
                 } else {
                     Snake.bodyParts.removeAt(0)
@@ -68,7 +72,7 @@ class GameActivity : AppCompatActivity(), SensorEventListener {
         }
     }
 
-    private fun updateScore(score: Int) {
+    private fun updateScore(score: Float) {
         this.score = score
         runOnUiThread {
             binding.scoreTextView.text =
@@ -83,11 +87,11 @@ class GameActivity : AppCompatActivity(), SensorEventListener {
             if(Helper.isAppOnline(applicationContext)){
                 updateScoreOnDB()
             }else{
-                val test = score
+                val currentScore = score
                 val userName = sharedPref.getString("userName","Bla").toString()
                 val dao = ScoreDatabase.getInstance(this).scoreDao
                 lifecycleScope.launch {
-                    dao.insert(ScoreEntity(userName, test.toLong()))
+                    dao.insert(ScoreEntity(userName, currentScore.toDouble()))
                 }
             }
             if (!isFinishing) {
@@ -111,17 +115,18 @@ class GameActivity : AppCompatActivity(), SensorEventListener {
             val url = getString(R.string.dbURL)
             val reference = FirebaseDatabase.getInstance(url).getReference("leaderboard")
             reference.child(user.displayName.toString()).get().addOnSuccessListener {
+                val finalScore = ((score * 100.0).roundToInt() / 100.0)
                 if (!it.exists()) {
-                    reference.child(user.displayName.toString()).setValue(score)
-                } else if (score > it.value as Long) {
-                    reference.child(user.displayName.toString()).setValue(score)
+                    reference.child(user.displayName.toString()).setValue(finalScore)
+                } else if (score > it.value as Double) {
+                    reference.child(user.displayName.toString()).setValue(finalScore)
                 }
             }
         }
     }
 
     private fun quitGame() {
-        updateScore(0)
+        updateScore(0F)
         addGameFinishDialog.cancel()
         startActivity(
             Intent(

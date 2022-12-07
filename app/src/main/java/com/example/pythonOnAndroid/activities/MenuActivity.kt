@@ -33,10 +33,6 @@ class MenuActivity : AppCompatActivity() {
             binding.logoutBtn.text = "Login"
         }
 
-        val dao = ScoreDatabase.getInstance(this).scoreDao
-        lifecycleScope.launch {
-            dao.insert(ScoreEntity("Gian-Luca Vogel", 2003))
-        }
         // Set up the input
         // Set up the input
         val input = EditText(this)

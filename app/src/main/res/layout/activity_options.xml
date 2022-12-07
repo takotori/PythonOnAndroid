@@ -104,17 +104,43 @@
         android:min="0"
         android:progress="1" />
 
-    <TextView
-        style="@style/optionsSubTitles"
-        android:id="@+id/options_snake_speed_title"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/options_snake_speed_txt" />
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/options_snake_speed_title3"
+            style="@style/optionsSubTitles"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/options_snake_speed_txt" />
+
+        <TextView
+            android:id="@+id/options_snake_scorex_txt"
+            style="@style/optionsSubTitles"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/score_multiplier"
+            android:textSize="12sp" />
+
+        <TextView
+            android:id="@+id/options_snake_scorex_value"
+            style="@style/optionsSubTitles"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/scoreMultiplierDefault"
+            android:textSize="12sp" />
+
+    </LinearLayout>
 
     <SeekBar
         android:id="@+id/options_snake_speed_seekBar"
         style="@style/optionsSeekBar"
-        android:max="299"
+        android:max="300"
         android:min="1"
         android:progress="150" />
 
@@ -132,9 +158,10 @@
         android:text="@string/options_language_txt" />
 
     <Spinner
-        style="@style/optionsControl"
         android:id="@+id/options_language_drop_down"
+        style="@style/optionsControl"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:entries="@array/languages_string_array" />
+        android:entries="@array/languages_string_array"
+        android:minHeight="48dp" />
 </LinearLayout>
