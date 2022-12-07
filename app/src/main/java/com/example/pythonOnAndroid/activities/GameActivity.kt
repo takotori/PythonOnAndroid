@@ -19,6 +19,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import kotlin.math.roundToInt
 
 class GameActivity : AppCompatActivity(), SensorEventListener {
     private lateinit var binding: ActivityGameBinding
@@ -32,10 +33,11 @@ class GameActivity : AppCompatActivity(), SensorEventListener {
         super.onCreate(savedInstanceState)
         Snake.alive = true
         binding = ActivityGameBinding.inflate(layoutInflater)
-        binding.scoreTextView.text = resources.getString(R.string.score_place_holder_txt).format(0)
+        binding.scoreTextView.text = resources.getString(R.string.score_place_holder_txt).format(0F)
         val sharedPref = getSharedPreferences(PreferenceKeys.preferenceName, MODE_PRIVATE)
         movementSensitivity = sharedPref.getFloat(PreferenceKeys.sensibility, 2F)
         scoreMultiplier = sharedPref.getFloat(PreferenceKeys.scoreMultiplier, 1F)
+        binding.scoreMultiplier.text = resources.getString(R.string.score_place_holder_txt).format(scoreMultiplier)
 
         setContentView(binding.root)
         setUpSensor()
@@ -68,7 +70,7 @@ class GameActivity : AppCompatActivity(), SensorEventListener {
         this.score = score
         runOnUiThread {
             binding.scoreTextView.text =
-                resources.getString(R.string.score_place_holder_txt).format(score.toInt())
+                resources.getString(R.string.score_place_holder_txt).format(score)
         }
     }
 
@@ -80,7 +82,7 @@ class GameActivity : AppCompatActivity(), SensorEventListener {
             if (!isFinishing) {
                 runOnUiThread {
                     addGameFinishDialog.setMessage(
-                        resources.getString(R.string.game_over_dialog_score).format(score.toInt())
+                        resources.getString(R.string.game_over_dialog_score).format(score)
                     )
                     addGameFinishDialog.show()
                 }
@@ -98,10 +100,11 @@ class GameActivity : AppCompatActivity(), SensorEventListener {
             val url = getString(R.string.dbURL)
             val reference = FirebaseDatabase.getInstance(url).getReference("leaderboard")
             reference.child(user.displayName.toString()).get().addOnSuccessListener {
+                val finalScore = ((score * 100.0).roundToInt() / 100.0)
                 if (!it.exists()) {
-                    reference.child(user.displayName.toString()).setValue(score)
-                } else if (score > it.value as Long) {
-                    reference.child(user.displayName.toString()).setValue(score)
+                    reference.child(user.displayName.toString()).setValue(finalScore)
+                } else if (score > it.value as Double) {
+                    reference.child(user.displayName.toString()).setValue(finalScore)
                 }
             }
         }

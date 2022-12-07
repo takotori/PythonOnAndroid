@@ -190,6 +190,9 @@ class OptionsActivity : AppCompatActivity() {
         //--Snake speed
         binding.optionsSnakeSpeedSeekBar.progress =
             300 - sharedPref.getLong(PreferenceKeys.snakeSpeed, 150L).toInt()
+        //--Score multiplier
+        binding.optionsSnakeScorexValue.text =
+            sharedPref.getFloat(PreferenceKeys.scoreMultiplier, 1F).toString()
         //-Language
         binding.optionsLanguageDropDown.setSelection(sharedPref.getInt("locale", 0))
     }

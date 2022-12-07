@@ -18,13 +18,13 @@ class ScoreActivity : AppCompatActivity() {
         setContentView(binding.root)
         val url = getString(R.string.dbURL)
         FirebaseDatabase.getInstance(url).getReference("leaderboard").get().addOnSuccessListener {
-            val map = sortedMapOf<String, Long>()
-            it.children.forEach { data -> map[data.key.toString()] = data.value as Long }
+            val map = sortedMapOf<String, Double>()
+            it.children.forEach { data -> map[data.key.toString()] = data.value as Double }
             createLeaderboard(map)
         }
     }
 
-    private fun createLeaderboard(map: SortedMap<String, Long>) {
+    private fun createLeaderboard(map: SortedMap<String, Double>) {
         val sortedLeaderboard = map.toList().sortedBy { (_, value) -> value }.toList().reversed()
         binding.leaderboard.adapter = LeaderboardAdapter(this, sortedLeaderboard)
         binding.leaderboard.layoutManager = LinearLayoutManager(this)

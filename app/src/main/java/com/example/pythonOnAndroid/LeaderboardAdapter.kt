@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 
 class LeaderboardAdapter(
     private val context: Context,
-    private val leaderboard: List<Pair<String, Long>>
+    private val leaderboard: List<Pair<String, Double>>
 ) : RecyclerView.Adapter<LeaderboardAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -26,7 +26,7 @@ class LeaderboardAdapter(
     }
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        fun bind(leaderboardEntry: Pair<String, Long>, position: Int) {
+        fun bind(leaderboardEntry: Pair<String, Double>, position: Int) {
             itemView.findViewById<TextView>(R.id.rank).text = position.toString()
             itemView.findViewById<TextView>(R.id.playerName).text = leaderboardEntry.first
             itemView.findViewById<TextView>(R.id.score).text = leaderboardEntry.second.toString()
