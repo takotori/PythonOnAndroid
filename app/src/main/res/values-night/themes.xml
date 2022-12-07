@@ -1,16 +1,12 @@
-<resources xmlns:tools="http://schemas.android.com/tools">
-    <!-- Base application theme. -->
+<resources>
+
     <style name="Theme.PythonOnAndroid" parent="Theme.MaterialComponents.DayNight.NoActionBar">
-        <!-- Primary brand color. -->
         <item name="colorPrimary">#5e9900</item>
         <item name="colorPrimaryVariant">#00993b</item>
         <item name="colorOnPrimary">#FFFFFFFF</item>
-        <!-- Secondary brand color. -->
         <item name="colorSecondary">#d0192f</item>
         <item name="colorSecondaryVariant">#f02e3c</item>
         <item name="colorOnSecondary">#3C3F41</item>
-        <!-- Status bar color. -->
         <item name="android:statusBarColor">?attr/colorPrimary</item>
-        <!-- Customize your theme here. -->
     </style>
 </resources>
