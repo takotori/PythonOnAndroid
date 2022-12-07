@@ -5,7 +5,7 @@
     <string name="scoreboardBtn_txt">Rangliste</string>
     <string name="optionsBtn_txt">Optionen</string>
     <string name="logoutBtn_txt">Abmelden</string>
-    <string name="score_place_holder_txt">PUNKTE: %d</string>
+    <string name="score_place_holder_txt">PUNKTE: %.2f</string>
     <string name="options_style_title_txt">Style</string>
     <string name="options_themes_txt">Themes</string>
     <string name="options_snake_color_txt">Schlangenfarbe</string>
