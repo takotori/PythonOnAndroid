@@ -138,7 +138,6 @@ class OptionsActivity : AppCompatActivity() {
                 }
                 AppCompatDelegate.setApplicationLocales(LocaleListCompat.forLanguageTags(locale))
             }
-
             override fun onNothingSelected(p0: AdapterView<*>?) {}
         }
     }
@@ -164,10 +163,7 @@ class OptionsActivity : AppCompatActivity() {
     }
 
     private fun initOptions(sharedPref: SharedPreferences) {
-        //-Style
-        //--Themes
         binding.optionsThemesRdGroup.check(sharedPref.getInt(PreferenceKeys.chosenCheckBoxTheme, 1))
-        //--SnakeColor
         binding.optionsSnakeColorBtn.setBackgroundColor(
             sharedPref.getInt(
                 PreferenceKeys.snakeColor, Color.GREEN
@@ -175,7 +171,6 @@ class OptionsActivity : AppCompatActivity() {
         )
         binding.optionsSnakeColorBtn.text =
             sharedPref.getString(PreferenceKeys.snakeColorHex, "#00FF00")
-        //--FoodColor
         binding.optionsFoodColorBtn.setBackgroundColor(
             sharedPref.getInt(
                 PreferenceKeys.foodColor,
@@ -184,19 +179,12 @@ class OptionsActivity : AppCompatActivity() {
         )
         binding.optionsFoodColorBtn.text =
             sharedPref.getString(PreferenceKeys.foodColorHex, "#FF0000")
-        //-Game settings
-        //--Control sensibility
         binding.optionsControlSensibilitySeekBar.progress =
-            sharedPref.getFloat(PreferenceKeys.sensibility, 2F).toInt()
-        //--Snake speed
+            sharedPref.getFloat(PreferenceKeys.sensibility, 1F).toInt()
         binding.optionsSnakeSpeedSeekBar.progress =
             300 - sharedPref.getLong(PreferenceKeys.snakeSpeed, 150L).toInt()
-        //--Score multiplier
         binding.optionsSnakeScorexTxt.text = resources.getString(R.string.score_multiplier)
             .format(sharedPref.getFloat(PreferenceKeys.scoreMultiplier, 1F))
-        //-Language
         binding.optionsLanguageDropDown.setSelection(sharedPref.getInt("locale", 0))
     }
-
-
 }

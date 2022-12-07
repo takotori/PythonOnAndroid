@@ -31,5 +31,5 @@
     <string name="game_over_dialog_title">Das Spiel ist aus!</string>
     <string name="score_multiplier">Punkte Multiplizierer: %.2f</string>
     <string name="offline_info_message_menu">Du kannst dich nicht einloggen weil du \nkeine Internetverbindung hast.</string>
-    <string name="logintBtn_txt">Anmelden</string>
+    <string name="loginBtn_txt">Anmelden</string>
 </resources>

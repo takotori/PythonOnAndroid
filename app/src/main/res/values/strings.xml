@@ -4,7 +4,7 @@
     <string name="scoreboardBtn_txt">Scoreboard</string>
     <string name="optionsBtn_txt">Options</string>
     <string name="logoutBtn_txt">Logout</string>
-    <string name="logintBtn_txt">Login</string>
+    <string name="loginBtn_txt">Login</string>
     <string name="score_place_holder_txt">SCORE: %.2f</string>
     <string name="game_over_dialog_score">Your score: %.2f</string>
     <string name="options_style_title_txt">Style</string>

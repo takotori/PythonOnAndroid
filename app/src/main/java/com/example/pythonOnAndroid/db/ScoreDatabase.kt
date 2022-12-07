@@ -13,14 +13,14 @@ import androidx.room.RoomDatabase
 )
 
 abstract class ScoreDatabase : RoomDatabase() {
-    abstract val scoreDao : ScoreDao
+    abstract val scoreDao: ScoreDao
 
-    companion object{
+    companion object {
         @Volatile
         private var INSTANCE: ScoreDatabase? = null
 
         fun getInstance(context: Context): ScoreDatabase {
-            synchronized(this){
+            synchronized(this) {
                 return INSTANCE ?: Room.databaseBuilder(
                     context.applicationContext,
                     ScoreDatabase::class.java,

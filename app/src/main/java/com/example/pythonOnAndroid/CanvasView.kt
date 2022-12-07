@@ -13,11 +13,9 @@ class CanvasView @JvmOverloads constructor(
     attrs: AttributeSet? = null,
     defStyleAttr: Int = 0
 ) : View(context, attrs, defStyleAttr) {
-
     private val snakeBody = Paint()
     private val food = Paint()
     private val level = Paint()
-
 
     override fun onDraw(canvas: Canvas?) {
         super.onDraw(canvas)

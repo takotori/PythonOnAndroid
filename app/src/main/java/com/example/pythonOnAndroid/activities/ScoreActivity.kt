@@ -8,7 +8,6 @@ import com.example.pythonOnAndroid.Helper
 import com.example.pythonOnAndroid.LeaderboardAdapter
 import com.example.pythonOnAndroid.R
 import com.example.pythonOnAndroid.db.ScoreDatabase
-import com.example.pythonOnAndroid.db.ScoreEntity
 import com.example.pythonOnAndroid.databinding.ActivityScoreBinding
 import com.google.firebase.database.FirebaseDatabase
 import kotlinx.coroutines.launch
@@ -23,14 +22,14 @@ class ScoreActivity : AppCompatActivity() {
         setContentView(binding.root)
         val url = getString(R.string.dbURL)
 
-        if(Helper.isAppOnline(applicationContext)) {
+        if (Helper.isAppOnline(applicationContext)) {
             FirebaseDatabase.getInstance(url).getReference("leaderboard").get()
                 .addOnSuccessListener {
                     val map = sortedMapOf<String, Double>()
                     it.children.forEach { data -> map[data.key.toString()] = data.value as Double }
                     createLeaderboard(map)
                 }
-        }else{
+        } else {
             val dao = ScoreDatabase.getInstance(this).scoreDao
             lifecycleScope.launch {
                 val allScoresFromDb = dao.getAll()

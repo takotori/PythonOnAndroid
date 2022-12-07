@@ -13,7 +13,6 @@ import com.example.pythonOnAndroid.databinding.ActivityMenuBinding
 import com.firebase.ui.auth.AuthUI
 import com.google.firebase.auth.FirebaseAuth
 
-
 class MenuActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMenuBinding
     private lateinit var offlineUserDialog: AlertDialog
@@ -27,7 +26,7 @@ class MenuActivity : AppCompatActivity() {
 
         val user = FirebaseAuth.getInstance().currentUser
         if (user == null || user.isAnonymous) {
-            binding.logoutBtn.text = resources.getString(R.string.logintBtn_txt)
+            binding.logoutBtn.text = resources.getString(R.string.loginBtn_txt)
         }
 
         val input = EditText(this)
@@ -36,22 +35,20 @@ class MenuActivity : AppCompatActivity() {
         offlineUserDialog = AlertDialog.Builder(this)
             .setTitle("Type in a Username")
             .setView(input)
-            .setPositiveButton("Start"){_,_->
-                if(input.text.toString() != "" ){
-                    editor.apply{
-                        putString("userName",input.text.toString())
+            .setPositiveButton("Start") { _, _ ->
+                if (input.text.toString() != "") {
+                    editor.apply {
+                        putString("userName", input.text.toString())
                         apply()
                     }
                     startGame()
-                }else{
-                    Toast.makeText(this@MenuActivity,"Add user Name",Toast.LENGTH_LONG).show()
+                } else {
+                    Toast.makeText(this@MenuActivity, "Add user Name", Toast.LENGTH_LONG).show()
                 }
-
             }
-            .setNegativeButton("Cancle"){_,_->
+            .setNegativeButton("Cancle") { _, _ ->
                 offlineUserDialog.cancel()
             }.create()
-
         setupClickListener()
     }
 
@@ -82,13 +79,12 @@ class MenuActivity : AppCompatActivity() {
             }
         }
 
-        if(!Helper.isAppOnline(applicationContext)){
+        if (!Helper.isAppOnline(applicationContext)) {
             binding.logoutBtn.isEnabled = false
             binding.offlineInfoTxt.text = resources.getString(R.string.offline_info_message_menu)
-        }else{
+        } else {
             binding.offlineInfoTxt.text = ""
         }
-
 
         binding.logoutBtn.setOnClickListener {
             if (Helper.isAppOnline(applicationContext)) {
@@ -108,7 +104,7 @@ class MenuActivity : AppCompatActivity() {
             }
     }
 
-    private fun startGame(){
+    private fun startGame() {
         startActivity(
             Intent(
                 this@MenuActivity,
