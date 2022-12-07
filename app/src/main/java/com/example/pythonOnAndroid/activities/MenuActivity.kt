@@ -7,14 +7,11 @@ import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.lifecycleScope
 import com.example.pythonOnAndroid.Helper
+import com.example.pythonOnAndroid.R
 import com.example.pythonOnAndroid.databinding.ActivityMenuBinding
-import com.example.pythonOnAndroid.db.ScoreDatabase
-import com.example.pythonOnAndroid.db.ScoreEntity
 import com.firebase.ui.auth.AuthUI
 import com.google.firebase.auth.FirebaseAuth
-import kotlinx.coroutines.launch
 
 
 class MenuActivity : AppCompatActivity() {
@@ -30,11 +27,9 @@ class MenuActivity : AppCompatActivity() {
 
         val user = FirebaseAuth.getInstance().currentUser
         if (user == null || user.isAnonymous) {
-            binding.logoutBtn.text = "Login"
+            binding.logoutBtn.text = resources.getString(R.string.logintBtn_txt)
         }
 
-        // Set up the input
-        // Set up the input
         val input = EditText(this)
         input.inputType = InputType.TYPE_CLASS_TEXT
 
@@ -87,7 +82,13 @@ class MenuActivity : AppCompatActivity() {
             }
         }
 
-        binding.logoutBtn.isEnabled = Helper.isAppOnline(applicationContext)
+        if(!Helper.isAppOnline(applicationContext)){
+            binding.logoutBtn.isEnabled = false
+            binding.offlineInfoTxt.text = resources.getString(R.string.offline_info_message_menu)
+        }else{
+            binding.offlineInfoTxt.text = ""
+        }
+
 
         binding.logoutBtn.setOnClickListener {
             if (Helper.isAppOnline(applicationContext)) {

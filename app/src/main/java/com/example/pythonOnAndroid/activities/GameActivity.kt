@@ -7,8 +7,6 @@ import android.hardware.SensorEvent
 import android.hardware.SensorEventListener
 import android.hardware.SensorManager
 import android.os.Bundle
-import android.util.Log
-import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
@@ -43,7 +41,7 @@ class GameActivity : AppCompatActivity(), SensorEventListener {
         val sharedPref = getSharedPreferences(PreferenceKeys.preferenceName, MODE_PRIVATE)
         movementSensitivity = sharedPref.getFloat(PreferenceKeys.sensibility, 2F)
         scoreMultiplier = sharedPref.getFloat(PreferenceKeys.scoreMultiplier, 1F)
-        binding.scoreMultiplier.text = resources.getString(R.string.score_place_holder_txt).format(scoreMultiplier)
+        binding.scoreMultiplier.text = resources.getString(R.string.score_multiplier).format(scoreMultiplier)
 
         setContentView(binding.root)
         setUpSensor()
@@ -105,6 +103,7 @@ class GameActivity : AppCompatActivity(), SensorEventListener {
             binding.canvas.scaleX = 0F
             runOnUiThread {
                 binding.scoreTextView.text = ""
+                binding.scoreMultiplier.text = ""
             }
         }
     }

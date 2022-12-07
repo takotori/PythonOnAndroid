@@ -126,14 +126,6 @@
             android:text="@string/score_multiplier"
             android:textSize="12sp" />
 
-        <TextView
-            android:id="@+id/options_snake_scorex_value"
-            style="@style/optionsSubTitles"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="@string/scoreMultiplierDefault"
-            android:textSize="12sp" />
 
     </LinearLayout>
 

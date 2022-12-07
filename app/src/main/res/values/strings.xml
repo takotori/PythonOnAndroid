@@ -4,6 +4,7 @@
     <string name="scoreboardBtn_txt">Scoreboard</string>
     <string name="optionsBtn_txt">Options</string>
     <string name="logoutBtn_txt">Logout</string>
+    <string name="logintBtn_txt">Login</string>
     <string name="score_place_holder_txt">SCORE: %.2f</string>
     <string name="game_over_dialog_score">Your score: %.2f</string>
     <string name="options_style_title_txt">Style</string>
@@ -26,9 +27,8 @@
     <string name="game_over_dialog_back_to_menu">Back to menu</string>
     <string name="game_over_dialog_title">Game Over!</string>
     <string name="dbURL" translatable="false">https://python-on-android-default-rtdb.europe-west1.firebasedatabase.app/</string>
-    <string name="score_multiplier" translatable="false">Score Multiplier:</string>
-    <string name="scoreMultiplierDefault" translatable="false">1x</string>
-    <string name="score_multiplier_game" translatable="false">Score Multiplier: %.2f</string>
+    <string name="score_multiplier">Score Multiplier: %.2f</string>
+    <string name="offline_info_message_menu">You can\'t log in because \nyou don\'t have an internet connection.</string>
     <string-array name="languages_string_array">
         <item name="en">en</item>
         <item name="de">de</item>
