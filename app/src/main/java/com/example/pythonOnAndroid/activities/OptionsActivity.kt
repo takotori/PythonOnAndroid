@@ -2,6 +2,7 @@ package com.example.pythonOnAndroid.activities
 
 import android.content.SharedPreferences
 import android.graphics.Color
+import android.graphics.Interpolator
 import android.os.Bundle
 import android.view.View
 import android.widget.AdapterView
@@ -16,6 +17,10 @@ import com.example.pythonOnAndroid.R
 import com.example.pythonOnAndroid.databinding.ActivityOptionsBinding
 import com.github.dhaval2404.colorpicker.ColorPickerDialog
 import com.github.dhaval2404.colorpicker.model.ColorShape
+import java.text.DecimalFormat
+import kotlin.math.exp
+import kotlin.math.round
+import kotlin.math.roundToInt
 
 class OptionsActivity : AppCompatActivity() {
     private lateinit var binding: ActivityOptionsBinding
@@ -94,15 +99,20 @@ class OptionsActivity : AppCompatActivity() {
 
         binding.optionsSnakeSpeedSeekBar.setOnSeekBarChangeListener(object :
             SeekBar.OnSeekBarChangeListener {
-            override fun onProgressChanged(p0: SeekBar?, p1: Int, p2: Boolean) {}
+            override fun onProgressChanged(p0: SeekBar?, p1: Int, p2: Boolean) {
+                val d : Float = p1.toFloat() / p0?.max?.toFloat()!! * exp(p1.toFloat() / p0.max.toFloat() + 1)
+                binding.optionsSnakeScorexValue.text = ((d * 100.0).roundToInt() / 100.0).toString()
+            }
             override fun onStartTrackingTouch(p0: SeekBar?) {}
             override fun onStopTrackingTouch(seekbar: SeekBar?) {
                 var snakeSpeed = 150
+                val scoreMultiplier = binding.optionsSnakeScorexValue.text.toString()
                 if (seekbar != null) {
                     snakeSpeed = seekbar.progress
                 }
                 editor.apply {
                     putLong(PreferenceKeys.snakeSpeed, 300L - snakeSpeed.toLong())
+                    putFloat(PreferenceKeys.scoreMultiplier, scoreMultiplier.toFloat())
                     apply()
                 }
                 Toast.makeText(
@@ -183,4 +193,6 @@ class OptionsActivity : AppCompatActivity() {
         //-Language
         binding.optionsLanguageDropDown.setSelection(sharedPref.getInt("locale", 0))
     }
+
+
 }

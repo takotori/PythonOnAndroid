@@ -24,7 +24,8 @@ class GameActivity : AppCompatActivity(), SensorEventListener {
     private lateinit var binding: ActivityGameBinding
     private lateinit var sensorManager: SensorManager
     private var movementSensitivity: Float = 2F
-    private var score: Int = 0
+    private var score: Float = 0F
+    private var scoreMultiplier : Float = 0F
     private lateinit var addGameFinishDialog: AlertDialog
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -34,6 +35,7 @@ class GameActivity : AppCompatActivity(), SensorEventListener {
         binding.scoreTextView.text = resources.getString(R.string.score_place_holder_txt).format(0)
         val sharedPref = getSharedPreferences(PreferenceKeys.preferenceName, MODE_PRIVATE)
         movementSensitivity = sharedPref.getFloat(PreferenceKeys.sensibility, 2F)
+        scoreMultiplier = sharedPref.getFloat(PreferenceKeys.scoreMultiplier, 1F)
 
         setContentView(binding.root)
         setUpSensor()
@@ -51,7 +53,7 @@ class GameActivity : AppCompatActivity(), SensorEventListener {
                 moveSnake()
                 Snake.bodyParts.add(arrayOf(Snake.headX, Snake.headY))
                 if (Snake.headX == Food.posX && Snake.headY == Food.posY) {
-                    updateScore(score + 1)
+                    updateScore(score + (1 * scoreMultiplier))
                     Food.generate()
                 } else {
                     Snake.bodyParts.removeAt(0)
@@ -62,11 +64,11 @@ class GameActivity : AppCompatActivity(), SensorEventListener {
         }
     }
 
-    private fun updateScore(score: Int) {
+    private fun updateScore(score: Float) {
         this.score = score
         runOnUiThread {
             binding.scoreTextView.text =
-                resources.getString(R.string.score_place_holder_txt).format(score)
+                resources.getString(R.string.score_place_holder_txt).format(score.toInt())
         }
     }
 
@@ -78,7 +80,7 @@ class GameActivity : AppCompatActivity(), SensorEventListener {
             if (!isFinishing) {
                 runOnUiThread {
                     addGameFinishDialog.setMessage(
-                        resources.getString(R.string.game_over_dialog_score).format(score)
+                        resources.getString(R.string.game_over_dialog_score).format(score.toInt())
                     )
                     addGameFinishDialog.show()
                 }
@@ -106,7 +108,7 @@ class GameActivity : AppCompatActivity(), SensorEventListener {
     }
 
     private fun quitGame() {
-        updateScore(0)
+        updateScore(0F)
         addGameFinishDialog.cancel()
         startActivity(
             Intent(

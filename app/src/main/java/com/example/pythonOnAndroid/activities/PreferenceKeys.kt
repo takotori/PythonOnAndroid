@@ -11,5 +11,6 @@ class PreferenceKeys {
         const val foodColorHex = "foodColorHex"
         const val sensibility = "sensibility"
         const val snakeSpeed = "snakeSpeed"
+        const val scoreMultiplier = "scoreMultiplier"
     }
 }
