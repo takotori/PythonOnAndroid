@@ -18,7 +18,8 @@ und offline in der Datenbank geschrieben.
 
 ## Screenshots
 
-### LoginActivity wen Internet vorhanden mit Firebase-Authentication
+### LoginActivity mit Firebase-Authentication
+Wenn Internet vorhanden ist dies die Start-Activity ansonsten dient die MenuActivity als Start-Activity <br/>
 <img src="https://user-images.githubusercontent.com/114221850/206316586-3758d949-da6d-4c8c-a0bf-73149b2a21f7.jpg" height="400" width="auto">
 
 ### MenuActivity mit dunkel und hellem Theme
@@ -31,7 +32,7 @@ und offline in der Datenbank geschrieben.
 <img src="https://user-images.githubusercontent.com/114221850/206316564-d52fcd7b-36a9-43b3-b090-2ddb18e43b8c.jpg" height="400" width="auto"><img src="https://user-images.githubusercontent.com/114221850/206316582-94bc9917-a11d-4665-97a1-69671a92f1e9.jpg" height="400" width="auto">
 
 #### Colorpicker in OptionsActivity
-(Drittkomponente: https://github.com/Dhaval2404/ColorPicker) 
+Drittkomponente: https://github.com/Dhaval2404/ColorPicker <br/>
 <img src="https://user-images.githubusercontent.com/114221850/206316585-4b90d67d-19b3-4fa3-bcf2-16caeae7cd25.jpg" height="400" width="auto">
 
 ### ScoreActivity
