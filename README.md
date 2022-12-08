@@ -28,7 +28,7 @@ Wenn Internet vorhanden ist dies die Start-Activity ansonsten dient die MenuActi
 #### MenuActivity offline Gamestart
 <img src="https://user-images.githubusercontent.com/114221850/206316574-e7804c02-1011-4e3c-9ab6-6b095228fa6e.jpg" height="400" width="auto">
 
-### OptionsActivity
+### OptionsActivity mit dunkel und hellem Theme
 <img src="https://user-images.githubusercontent.com/114221850/206316564-d52fcd7b-36a9-43b3-b090-2ddb18e43b8c.jpg" height="400" width="auto"><img src="https://user-images.githubusercontent.com/114221850/206316582-94bc9917-a11d-4665-97a1-69671a92f1e9.jpg" height="400" width="auto">
 
 #### Colorpicker in OptionsActivity
@@ -36,10 +36,10 @@ Drittkomponente: https://github.com/Dhaval2404/ColorPicker <br/>
 <img src="https://user-images.githubusercontent.com/114221850/206316585-4b90d67d-19b3-4fa3-bcf2-16caeae7cd25.jpg" height="400" width="auto">
 
 ### ScoreActivity
-Wen Internet vorhanden dan kommen die Daten aus der Firebase Realtime Database und sonst von der SQLite-DB via Room
+Wen Internet vorhanden dan kommen die Daten aus der Firebase Realtime Database und sonst von der SQLite-DB via Room <br/>
 <img src="https://user-images.githubusercontent.com/114221850/206316570-395344b7-87f0-4dee-9149-a9020df52f84.jpg" height="400" width="auto">
 
-### GameActivity
+### GameActivity mit dunkel und hellem Theme
 <img src="https://user-images.githubusercontent.com/114221850/206316579-224637f4-775e-40e4-8b36-2b1da41c8b2e.jpg" height="400" width="auto"><img src="https://user-images.githubusercontent.com/114221850/206316588-26c2fb2c-cb42-4ff8-b51a-6ede972e8d40.jpg" height="400" width="auto">
 
 #### GameActivity Game Over
