@@ -29,14 +29,10 @@ class CanvasView @JvmOverloads constructor(
 
         canvas?.drawRect(0f, 0f, 1050f, 1050f, level)
 
-        // draw snake from array
-        // left x, top y, right x+50, bottom y +50
         for (i in Snake.bodyParts) {
             canvas?.drawRect(i[0], i[1], i[0] + 45, i[1] + 45, snakeBody)
         }
 
-        // draw food from array
-        // left x, top y, right x+50, bottom y +50
         canvas?.drawRect(Food.posX, Food.posY, Food.posX + 45, Food.posY + 45, food)
     }
 }
