@@ -3,7 +3,7 @@ In unserer App implementieren wir das Spiel Snake. Der Spieler soll dabei die Sc
 Bewegungssensoren steuern können. Es gibt eine Offline- sowie eine Online-Modus. 
 Um online spielen zu können muss der Nutzer sich mit einem Google-Account anmelden. 
 Die Spielstände werden im Online Modus auf Google Firebase gespeichert 
-und offline in der Datenbank geschrieben.
+und offline in die SQLite-Datenbank geschrieben.
 
 ## Punkte Auflistung
 * Verwendung von Kotlin statt Java           **(6 Punkte)**
