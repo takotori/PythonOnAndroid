@@ -36,7 +36,8 @@ Drittkomponente: https://github.com/Dhaval2404/ColorPicker <br/>
 <img src="https://user-images.githubusercontent.com/114221850/206316585-4b90d67d-19b3-4fa3-bcf2-16caeae7cd25.jpg" height="400" width="auto">
 
 ### ScoreActivity
-Wen Internet vorhanden dan kommen die Daten aus der Firebase Realtime Database und sonst von der SQLite-DB via Room <br/>
+Wen Internet vorhanden dan kommen die Daten aus der Firebase Realtime Database (Bild links) und sonst von der SQLite-DB via Room (Bild rechts) <br/>
+<img src="https://user-images.githubusercontent.com/114221850/206493180-6ae8caa0-e1ad-4ce6-8125-d59fbc06397b.jpg" height="400" width="auto">
 <img src="https://user-images.githubusercontent.com/114221850/206316570-395344b7-87f0-4dee-9149-a9020df52f84.jpg" height="400" width="auto">
 
 ### GameActivity mit dunkel und hellem Theme
