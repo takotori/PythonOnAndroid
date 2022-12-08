@@ -6,13 +6,13 @@ Die Spielstände werden im Online-Modus in der Realtimedatabase von Google Fireb
 und offline in die SQLite-Datenbank geschrieben.
 
 ## Punkte Auflistung
-* Verwendung von Kotlin statt Java           **(6 Punkte)**
-* Persistenz / Offlinefähigkeit         **(min. 1 Punkt)**
-* Verwendung von Webservices            **(min. 1 Punkt)**
-* Verwendung von Aktoren oder Sensoren  **(min. 1 Punkt)**
-* Verwendung von Jetpack-Komponenten    **(min. 1 Punkt)**
-* Integration von Drittkomponenten      **(min. 1 Punkt)**
-* Ressourcen: Unterschiedliche Styles   **(min. 1 Punkt)**
+* Verwendung von Kotlin statt Java      **(6 Punkte)**
+* Persistenz / Offlinefähigkeit         **(SQLite-DB via Room, SharedPreferences: min. 1 Punkt)**
+* Verwendung von Webservices            **(Firebase-Authentication, Firebase-Realtime-Database, Firebase-Analytics: min. 1 Punkt)**
+* Verwendung von Aktoren oder Sensoren  **(ACCELEROMETER: min. 1 Punkt)**
+* Verwendung von Jetpack-Komponenten    **(Verschiedenen UI-Komponenten: min. 1 Punkt)**
+* Integration von Drittkomponenten      **(ColorPicker: min. 1 Punkt)**
+* Ressourcen: Unterschiedliche Styles   **(2 Themes: min. 1 Punkt)**
 * Funktionalität pro Screen **(OptionActivity, GameActivity, ScoreActivity und MenuActivity plus LogginActivity min. 3 Punkte)**
 * Total Punkte min: **15 Punkte**
 
