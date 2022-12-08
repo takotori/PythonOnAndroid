@@ -1,8 +1,8 @@
 # PythonOnAndroid :snake:
 In unserer App implementieren wir das Spiel Snake. Der Spieler soll dabei die Schlange mittels 
-Bewegungssensoren steuern können. Es gibt eine Offline- sowie eine Online-Modus. 
-Um online spielen zu können muss der Nutzer sich mit einem Google-Account anmelden. 
-Die Spielstände werden im Online Modus auf Google Firebase gespeichert 
+Bewegungssensoren steuern können. Es gibt ein Online- sowie einen Offline-Modus. 
+Um online spielen zu können, kann der Nuetzer sich mit seiner Email, einem Google-Account oder als Gast anmelden. 
+Die Spielstände werden im Online-Modus in der Realtimedatabase von Google Firebase gespeichert 
 und offline in die SQLite-Datenbank geschrieben.
 
 ## Punkte Auflistung
