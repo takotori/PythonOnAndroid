@@ -1,4 +1,4 @@
-package com.example.pythonOnAndroid.activities
+package com.example.pythonOnAndroid
 
 class PreferenceKeys {
     companion object {
@@ -12,5 +12,6 @@ class PreferenceKeys {
         const val sensibility = "sensibility"
         const val snakeSpeed = "snakeSpeed"
         const val scoreMultiplier = "scoreMultiplier"
+        const val userName = "userName"
     }
 }

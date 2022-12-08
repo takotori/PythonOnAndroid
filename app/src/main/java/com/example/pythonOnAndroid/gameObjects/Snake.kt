@@ -1,11 +1,11 @@
-package com.example.pythonOnAndroid
+package com.example.pythonOnAndroid.gameObjects
 
 class Snake {
     companion object {
         var headX = 500f
         var headY = 500f
         var bodyParts = mutableListOf(arrayOf(0f, 0f))
-        var direction = "up"
+        var direction = Directions.UP
         var alive = false
 
         fun possibleMove(): Boolean {
@@ -21,7 +21,7 @@ class Snake {
             headX = 500f
             headY = 500f
             bodyParts = mutableListOf(arrayOf(0f, 0f))
-            direction = "up"
+            direction = Directions.UP
         }
     }
 }

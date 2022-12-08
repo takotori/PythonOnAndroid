@@ -1,13 +1,12 @@
 package com.example.pythonOnAndroid.activities
 
-import android.content.Context
 import android.content.Intent
-import android.net.ConnectivityManager
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import com.example.pythonOnAndroid.Helper
+import com.example.pythonOnAndroid.PreferenceKeys
 import com.example.pythonOnAndroid.R
 import com.example.pythonOnAndroid.databinding.ActivityLoginBinding
 import com.firebase.ui.auth.AuthUI

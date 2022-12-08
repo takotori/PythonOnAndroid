@@ -1,6 +1,7 @@
 package com.example.pythonOnAndroid.activities
 
 import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.text.InputType
 import android.widget.EditText
@@ -8,7 +9,10 @@ import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import com.example.pythonOnAndroid.Helper
+import com.example.pythonOnAndroid.PreferenceKeys
 import com.example.pythonOnAndroid.R
+import com.example.pythonOnAndroid.activities.game.GameActivity
+import com.example.pythonOnAndroid.activities.score.ScoreActivity
 import com.example.pythonOnAndroid.databinding.ActivityMenuBinding
 import com.firebase.ui.auth.AuthUI
 import com.google.firebase.auth.FirebaseAuth
@@ -26,29 +30,10 @@ class MenuActivity : AppCompatActivity() {
 
         val user = FirebaseAuth.getInstance().currentUser
         if (user == null || user.isAnonymous) {
-            binding.logoutBtn.text = resources.getString(R.string.loginBtn_txt)
+            binding.logoutBtn.text = resources.getString(R.string.logoutBtn_txt)
         }
 
-        val input = EditText(this)
-        input.inputType = InputType.TYPE_CLASS_TEXT
-
-        offlineUserDialog = AlertDialog.Builder(this)
-            .setTitle("Type in a Username")
-            .setView(input)
-            .setPositiveButton("Start") { _, _ ->
-                if (input.text.toString() != "") {
-                    editor.apply {
-                        putString("userName", input.text.toString())
-                        apply()
-                    }
-                    startGame()
-                } else {
-                    Toast.makeText(this@MenuActivity, "Add user Name", Toast.LENGTH_LONG).show()
-                }
-            }
-            .setNegativeButton("Cancle") { _, _ ->
-                offlineUserDialog.cancel()
-            }.create()
+        offlineUserDialog = buildOfflineUserDialog(editor)
         setupClickListener()
     }
 
@@ -111,5 +96,27 @@ class MenuActivity : AppCompatActivity() {
                 GameActivity::class.java
             )
         )
+    }
+
+    private fun buildOfflineUserDialog(editor: SharedPreferences.Editor): AlertDialog{
+        val input = EditText(this@MenuActivity)
+        input.inputType = InputType.TYPE_CLASS_TEXT
+        return AlertDialog.Builder(this)
+            .setTitle("Type in a Username")
+            .setView(input)
+            .setPositiveButton("Start") { _, _ ->
+                if (input.text.toString() != "") {
+                    editor.apply {
+                        putString(PreferenceKeys.userName, input.text.toString())
+                        apply()
+                    }
+                    startGame()
+                } else {
+                    Toast.makeText(this@MenuActivity, "Add user Name", Toast.LENGTH_LONG).show()
+                }
+            }
+            .setNegativeButton("Cancle") { _, _ ->
+                offlineUserDialog.cancel()
+            }.create()
     }
 }

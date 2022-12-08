@@ -12,6 +12,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.os.LocaleListCompat
+import com.example.pythonOnAndroid.PreferenceKeys
 import com.example.pythonOnAndroid.R
 import com.example.pythonOnAndroid.databinding.ActivityOptionsBinding
 import com.github.dhaval2404.colorpicker.ColorPickerDialog

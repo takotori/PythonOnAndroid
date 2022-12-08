@@ -1,4 +1,4 @@
-package com.example.pythonOnAndroid
+package com.example.pythonOnAndroid.activities.score
 
 import android.content.Context
 import android.view.LayoutInflater
@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.example.pythonOnAndroid.R
 
 class LeaderboardAdapter(
     private val context: Context,

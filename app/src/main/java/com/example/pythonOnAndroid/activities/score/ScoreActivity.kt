@@ -1,11 +1,10 @@
-package com.example.pythonOnAndroid.activities
+package com.example.pythonOnAndroid.activities.score
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.pythonOnAndroid.Helper
-import com.example.pythonOnAndroid.LeaderboardAdapter
 import com.example.pythonOnAndroid.R
 import com.example.pythonOnAndroid.db.ScoreDatabase
 import com.example.pythonOnAndroid.databinding.ActivityScoreBinding

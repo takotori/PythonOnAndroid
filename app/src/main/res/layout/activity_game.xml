@@ -6,9 +6,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@android:color/white"
-    tools:context="com.example.pythonOnAndroid.activities.GameActivity">
+    tools:context="com.example.pythonOnAndroid.activities.game.GameActivity">
 
-    <com.example.pythonOnAndroid.CanvasView
+    <com.example.pythonOnAndroid.activities.game.CanvasView
         android:id="@+id/canvas"
         android:layout_width="match_parent"
         android:layout_height="400dp"

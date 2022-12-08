@@ -1,4 +1,4 @@
-package com.example.pythonOnAndroid
+package com.example.pythonOnAndroid.activities.game
 
 import android.view.View
 import android.util.AttributeSet
@@ -7,6 +7,8 @@ import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.Paint
 import androidx.appcompat.app.AppCompatActivity
+import com.example.pythonOnAndroid.gameObjects.Food
+import com.example.pythonOnAndroid.gameObjects.Snake
 
 class CanvasView @JvmOverloads constructor(
     context: Context,

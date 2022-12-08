@@ -1,4 +1,4 @@
-package com.example.pythonOnAndroid
+package com.example.pythonOnAndroid.gameObjects
 
 class Food {
     companion object {

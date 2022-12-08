@@ -1,4 +1,4 @@
-package com.example.pythonOnAndroid.activities
+package com.example.pythonOnAndroid.activities.game
 
 import android.content.Intent
 import android.content.SharedPreferences
@@ -10,13 +10,16 @@ import android.os.Bundle
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
-import com.example.pythonOnAndroid.Food
+import com.example.pythonOnAndroid.gameObjects.Food
 import com.example.pythonOnAndroid.Helper
 import com.example.pythonOnAndroid.R
-import com.example.pythonOnAndroid.Snake
+import com.example.pythonOnAndroid.gameObjects.Snake
+import com.example.pythonOnAndroid.activities.MenuActivity
+import com.example.pythonOnAndroid.PreferenceKeys
 import com.example.pythonOnAndroid.databinding.ActivityGameBinding
 import com.example.pythonOnAndroid.db.ScoreDatabase
 import com.example.pythonOnAndroid.db.ScoreEntity
+import com.example.pythonOnAndroid.gameObjects.Directions
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
 import kotlinx.coroutines.CoroutineScope
@@ -30,7 +33,7 @@ class GameActivity : AppCompatActivity(), SensorEventListener {
     private lateinit var sensorManager: SensorManager
     private var movementSensitivity: Float = 2F
     private var score: Float = 0F
-    private var scoreMultiplier : Float = 0F
+    private var scoreMultiplier: Float = 0F
     private lateinit var addGameFinishDialog: AlertDialog
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -41,15 +44,16 @@ class GameActivity : AppCompatActivity(), SensorEventListener {
         val sharedPref = getSharedPreferences(PreferenceKeys.preferenceName, MODE_PRIVATE)
         movementSensitivity = sharedPref.getFloat(PreferenceKeys.sensibility, 2F)
         scoreMultiplier = sharedPref.getFloat(PreferenceKeys.scoreMultiplier, 1F)
-        binding.scoreMultiplier.text = resources.getString(R.string.score_multiplier).format(scoreMultiplier)
-
-        setContentView(binding.root)
-        setUpSensor()
+        binding.scoreMultiplier.text =
+            resources.getString(R.string.score_multiplier).format(scoreMultiplier)
         addGameFinishDialog = AlertDialog.Builder(this)
             .setTitle(resources.getString(R.string.game_over_dialog_title))
             .setNegativeButton(resources.getString(R.string.game_over_dialog_back_to_menu)) { _, _ ->
                 quitGame()
             }.create()
+
+        setContentView(binding.root)
+        setUpSensor()
         moveSnake(sharedPref)
     }
 
@@ -70,11 +74,24 @@ class GameActivity : AppCompatActivity(), SensorEventListener {
         }
     }
 
-    private fun updateScore(score: Float) {
-        this.score = score
-        runOnUiThread {
-            binding.scoreTextView.text =
-                resources.getString(R.string.score_place_holder_txt).format(score)
+    private fun moveSnakeDirection(sharedPref: SharedPreferences) {
+        when (Snake.direction) {
+            Directions.UP -> {
+                Snake.headY -= 50
+                checkPossibleMoves(sharedPref)
+            }
+            Directions.DOWN -> {
+                Snake.headY += 50
+                checkPossibleMoves(sharedPref)
+            }
+            Directions.LEFT -> {
+                Snake.headX -= 50
+                checkPossibleMoves(sharedPref)
+            }
+            Directions.RIGHT -> {
+                Snake.headX += 50
+                checkPossibleMoves(sharedPref)
+            }
         }
     }
 
@@ -82,14 +99,20 @@ class GameActivity : AppCompatActivity(), SensorEventListener {
         if (!Snake.possibleMove()) {
             Snake.alive = false
             Snake.reset()
-            if(Helper.isAppOnline(applicationContext)){
-                updateScoreOnDB()
-            }else{
+            if (Helper.isAppOnline(applicationContext)) {
+                updateScoreOnFireBase()
+            } else {
                 val currentScore = score
-                val userName = sharedPref.getString("userName","Bla").toString()
+                val userName =
+                    sharedPref.getString(PreferenceKeys.userName, "Unknown User").toString()
                 val dao = ScoreDatabase.getInstance(this).scoreDao
                 lifecycleScope.launch {
-                    dao.insert(ScoreEntity(userName, currentScore.toDouble()))
+                    dao.insert(
+                        ScoreEntity(
+                            userName,
+                            Helper.roundToTwoDecimals(currentScore.toDouble())
+                        )
+                    )
                 }
             }
             if (!isFinishing) {
@@ -108,7 +131,7 @@ class GameActivity : AppCompatActivity(), SensorEventListener {
         }
     }
 
-    private fun updateScoreOnDB() {
+    private fun updateScoreOnFireBase() {
         val user = FirebaseAuth.getInstance().currentUser
         if (user != null && !user.isAnonymous) {
             val url = getString(R.string.dbURL)
@@ -124,6 +147,14 @@ class GameActivity : AppCompatActivity(), SensorEventListener {
         }
     }
 
+    private fun updateScore(score: Float) {
+        this.score = score
+        runOnUiThread {
+            binding.scoreTextView.text =
+                resources.getString(R.string.score_place_holder_txt).format(score)
+        }
+    }
+
     private fun quitGame() {
         updateScore(0F)
         addGameFinishDialog.cancel()
@@ -134,27 +165,6 @@ class GameActivity : AppCompatActivity(), SensorEventListener {
             )
         )
         finish()
-    }
-
-    private fun moveSnakeDirection(sharedPref: SharedPreferences) {
-        when (Snake.direction) {
-            "up" -> {
-                Snake.headY -= 50
-                checkPossibleMoves(sharedPref)
-            }
-            "down" -> {
-                Snake.headY += 50
-                checkPossibleMoves(sharedPref)
-            }
-            "left" -> {
-                Snake.headX -= 50
-                checkPossibleMoves(sharedPref)
-            }
-            "right" -> {
-                Snake.headX += 50
-                checkPossibleMoves(sharedPref)
-            }
-        }
     }
 
     private fun setUpSensor() {
@@ -176,23 +186,23 @@ class GameActivity : AppCompatActivity(), SensorEventListener {
 
             if (sides < -movementSensitivity) {
                 Snake.alive = true
-                if (Snake.direction != "right")
-                    Snake.direction = "left"
+                if (Snake.direction != Directions.RIGHT)
+                    Snake.direction = Directions.LEFT
             }
             if (sides > movementSensitivity) {
                 Snake.alive = true
-                if (Snake.direction != "left")
-                    Snake.direction = "right"
+                if (Snake.direction != Directions.LEFT)
+                    Snake.direction = Directions.RIGHT
             }
             if (upDown < -movementSensitivity) {
                 Snake.alive = true
-                if (Snake.direction != "down")
-                    Snake.direction = "up"
+                if (Snake.direction != Directions.DOWN)
+                    Snake.direction = Directions.UP
             }
             if (upDown > movementSensitivity) {
                 Snake.alive = true
-                if (Snake.direction != "up")
-                    Snake.direction = "down"
+                if (Snake.direction != Directions.UP)
+                    Snake.direction = Directions.DOWN
             }
         }
     }
